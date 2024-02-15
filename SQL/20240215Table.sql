@@ -177,7 +177,6 @@ CREATE TABLE `jeu` (
   `Nom` varchar(100) NOT NULL,
   `DateSortie` date NOT NULL,
   `Description` mediumtext NOT NULL,
-  `prix` decimal(15,2) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
