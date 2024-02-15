@@ -15,45 +15,14 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-DROP DATABASE if EXISTS Steen;
-CREATE DATABASE Steen:
-USE Steen;
-
 --
--- Table structure for table `ajouter`
+-- Table structure for table `JEU_A_TAG`
 --
 
-DROP TABLE IF EXISTS `ajouter`;
+DROP TABLE IF EXISTS `JEU_A_TAG`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ajouter` (
-  `idUtilisateur` int(11) NOT NULL,
-  `idJeu` int(11) NOT NULL,
-  PRIMARY KEY (`idUtilisateur`,`idJeu`),
-  KEY `fk_Utilisateur_has_Jeu_Jeu1_idx` (`idJeu`),
-  KEY `fk_Utilisateur_has_Jeu_Utilisateur1_idx` (`idUtilisateur`),
-  CONSTRAINT `fk_Utilisateur_has_Jeu_Jeu1` FOREIGN KEY (`idJeu`) REFERENCES `jeu` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Utilisateur_has_Jeu_Utilisateur1` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateur` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ajouter`
---
-
-LOCK TABLES `ajouter` WRITE;
-/*!40000 ALTER TABLE `ajouter` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ajouter` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `appartenir`
---
-
-DROP TABLE IF EXISTS `appartenir`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `appartenir` (
+CREATE TABLE `JEU_A_TAG` (
   `idTag` int(11) NOT NULL,
   `idJeu` int(11) NOT NULL,
   PRIMARY KEY (`idTag`,`idJeu`),
@@ -65,23 +34,49 @@ CREATE TABLE `appartenir` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `appartenir`
+-- Dumping data for table `JEU_A_TAG`
 --
 
-LOCK TABLES `appartenir` WRITE;
-/*!40000 ALTER TABLE `appartenir` DISABLE KEYS */;
-INSERT INTO `appartenir` VALUES (5,1);
-/*!40000 ALTER TABLE `appartenir` ENABLE KEYS */;
+LOCK TABLES `JEU_A_TAG` WRITE;
+/*!40000 ALTER TABLE `JEU_A_TAG` DISABLE KEYS */;
+/*!40000 ALTER TABLE `JEU_A_TAG` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `developper`
+-- Table structure for table `UTILISATEUR_AJOUTE_JEU`
 --
 
-DROP TABLE IF EXISTS `developper`;
+DROP TABLE IF EXISTS `UTILISATEUR_AJOUTE_JEU`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `developper` (
+CREATE TABLE `UTILISATEUR_AJOUTE_JEU` (
+  `idUtilisateur` int(11) NOT NULL,
+  `idJeu` int(11) NOT NULL,
+  PRIMARY KEY (`idUtilisateur`,`idJeu`),
+  KEY `fk_Utilisateur_has_Jeu_Jeu1_idx` (`idJeu`),
+  KEY `fk_Utilisateur_has_Jeu_Utilisateur1_idx` (`idUtilisateur`),
+  CONSTRAINT `fk_Utilisateur_has_Jeu_Jeu1` FOREIGN KEY (`idJeu`) REFERENCES `jeu` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Utilisateur_has_Jeu_Utilisateur1` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateur` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `UTILISATEUR_AJOUTE_JEU`
+--
+
+LOCK TABLES `UTILISATEUR_AJOUTE_JEU` WRITE;
+/*!40000 ALTER TABLE `UTILISATEUR_AJOUTE_JEU` DISABLE KEYS */;
+/*!40000 ALTER TABLE `UTILISATEUR_AJOUTE_JEU` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `UTILISATEUR_DEVELOPPE_JEU`
+--
+
+DROP TABLE IF EXISTS `UTILISATEUR_DEVELOPPE_JEU`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `UTILISATEUR_DEVELOPPE_JEU` (
   `idJeu` int(11) NOT NULL,
   `idUtilisateur` int(11) NOT NULL,
   PRIMARY KEY (`idJeu`,`idUtilisateur`),
@@ -93,12 +88,39 @@ CREATE TABLE `developper` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `developper`
+-- Dumping data for table `UTILISATEUR_DEVELOPPE_JEU`
 --
 
-LOCK TABLES `developper` WRITE;
-/*!40000 ALTER TABLE `developper` DISABLE KEYS */;
-/*!40000 ALTER TABLE `developper` ENABLE KEYS */;
+LOCK TABLES `UTILISATEUR_DEVELOPPE_JEU` WRITE;
+/*!40000 ALTER TABLE `UTILISATEUR_DEVELOPPE_JEU` DISABLE KEYS */;
+/*!40000 ALTER TABLE `UTILISATEUR_DEVELOPPE_JEU` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `UTILISATEUR_PUBLIE_JEU`
+--
+
+DROP TABLE IF EXISTS `UTILISATEUR_PUBLIE_JEU`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `UTILISATEUR_PUBLIE_JEU` (
+  `idJeu` int(11) NOT NULL,
+  `idUtilisateur` int(11) NOT NULL,
+  PRIMARY KEY (`idJeu`,`idUtilisateur`),
+  KEY `fk_Jeu_has_Utilisateur_Utilisateur2_idx` (`idUtilisateur`),
+  KEY `fk_Jeu_has_Utilisateur_Jeu2_idx` (`idJeu`),
+  CONSTRAINT `fk_Jeu_has_Utilisateur_Jeu2` FOREIGN KEY (`idJeu`) REFERENCES `jeu` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Jeu_has_Utilisateur_Utilisateur2` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateur` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `UTILISATEUR_PUBLIE_JEU`
+--
+
+LOCK TABLES `UTILISATEUR_PUBLIE_JEU` WRITE;
+/*!40000 ALTER TABLE `UTILISATEUR_PUBLIE_JEU` DISABLE KEYS */;
+/*!40000 ALTER TABLE `UTILISATEUR_PUBLIE_JEU` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -180,7 +202,7 @@ CREATE TABLE `jeu` (
   `Description` mediumtext NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -189,35 +211,7 @@ CREATE TABLE `jeu` (
 
 LOCK TABLES `jeu` WRITE;
 /*!40000 ALTER TABLE `jeu` DISABLE KEYS */;
-INSERT INTO `jeu` VALUES (1,'La Joie De Créer','2010-02-12','La joie de création est un jeu d’horreur terrifiant en vue à la première personne');
 /*!40000 ALTER TABLE `jeu` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `publier`
---
-
-DROP TABLE IF EXISTS `publier`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `publier` (
-  `idJeu` int(11) NOT NULL,
-  `idUtilisateur` int(11) NOT NULL,
-  PRIMARY KEY (`idJeu`,`idUtilisateur`),
-  KEY `fk_Jeu_has_Utilisateur_Utilisateur2_idx` (`idUtilisateur`),
-  KEY `fk_Jeu_has_Utilisateur_Jeu2_idx` (`idJeu`),
-  CONSTRAINT `fk_Jeu_has_Utilisateur_Jeu2` FOREIGN KEY (`idJeu`) REFERENCES `jeu` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Jeu_has_Utilisateur_Utilisateur2` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateur` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `publier`
---
-
-LOCK TABLES `publier` WRITE;
-/*!40000 ALTER TABLE `publier` DISABLE KEYS */;
-/*!40000 ALTER TABLE `publier` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -232,7 +226,7 @@ CREATE TABLE `role` (
   `Nom` varchar(30) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -241,7 +235,6 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` VALUES (1,'Admin'),(2,'Utilisateur');
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -257,7 +250,7 @@ CREATE TABLE `tag` (
   `Nom` varchar(30) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -266,7 +259,6 @@ CREATE TABLE `tag` (
 
 LOCK TABLES `tag` WRITE;
 /*!40000 ALTER TABLE `tag` DISABLE KEYS */;
-INSERT INTO `tag` VALUES (1,'fps'),(2,'sandbox'),(3,'Aventure'),(4,'openWorld'),(5,'Horreur'),(6,'strategy');
 /*!40000 ALTER TABLE `tag` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -315,7 +307,7 @@ CREATE TABLE `utilisateur` (
   UNIQUE KEY `Nom_UNIQUE` (`Nom`),
   KEY `fk_Utilisateur_Role1_idx` (`idRole`),
   CONSTRAINT `fk_Utilisateur_Role1` FOREIGN KEY (`idRole`) REFERENCES `role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -324,7 +316,6 @@ CREATE TABLE `utilisateur` (
 
 LOCK TABLES `utilisateur` WRITE;
 /*!40000 ALTER TABLE `utilisateur` DISABLE KEYS */;
-INSERT INTO `utilisateur` VALUES (1,'Admin','Admin@gmail.com','Super2024',0,1),(2,'premierUtilisateur','premierUtilisateur@gmail.com','Super2024',0,2);
 /*!40000 ALTER TABLE `utilisateur` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -337,14 +328,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-15 15:48:06
-
-DROP USER IF EXISTS ApiUser@localhost;
-FLUSH PRIVILEGES;
-CREATE USER ApiUser@localhost IDENTIFIED BY '***REMOVED***';
-GRANT ALL PRIVILEGES ON Steen.* TO ApiUser@localhost;
-FLUSH PRIVILEGES;
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+-- Dump completed on 2024-02-15 15:53:52
