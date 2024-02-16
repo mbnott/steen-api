@@ -1,0 +1,23 @@
+{
+    "name": "mbnot/steen-api",
+    "description": "The Official RESTful API for Steen",
+    "type": "project",
+    "require": {
+        "slim/slim": "^4.12",
+        "slim/php-view": "^3.2",
+        "slim/psr7": "^1.6",
+        "zircote/swagger-php": "^4.8",
+        "ext-pdo": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mbnot\\SteenApi\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "mbnot"
+        }
+    ],
+    "minimum-stability": "stable"
+}
