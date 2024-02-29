@@ -1,4 +1,5 @@
-CREATE DATABASE IF NOT EXISTS Steen;
+DROP DATABASE IF EXISTS Steen;
+CREATE DATABASE Steen;
 USE Steen;
 
 -- MySQL Workbench Forward Engineering
