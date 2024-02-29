@@ -128,9 +128,9 @@ DROP TABLE IF EXISTS `jeu`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `jeu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Nom` varchar(100) NOT NULL,
-  `DateSortie` date NOT NULL,
-  `Description` mediumtext NOT NULL,
+  `nom` varchar(100) NOT NULL,
+  `dateSortie` date NOT NULL,
+  `description` mediumtext NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
@@ -145,7 +145,7 @@ DROP TABLE IF EXISTS `role`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Nom` varchar(30) NOT NULL,
+  `nom` varchar(30) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
@@ -160,7 +160,7 @@ DROP TABLE IF EXISTS `tag`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tag` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Nom` varchar(30) NOT NULL,
+  `nom` varchar(30) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
@@ -174,7 +174,7 @@ DROP TABLE IF EXISTS `token`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `token` (
-  `Token` varchar(200) NOT NULL,
+  `token` varchar(200) NOT NULL,
   `idUtilisateur` int(11) NOT NULL,
   PRIMARY KEY (`Token`),
   UNIQUE KEY `Token_UNIQUE` (`Token`),
@@ -192,8 +192,8 @@ DROP TABLE IF EXISTS `utilisateur`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `utilisateur` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Nom` varchar(90) NOT NULL,
-  `EMail` varchar(90) NOT NULL,
+  `nom` varchar(90) NOT NULL,
+  `eMail` varchar(90) NOT NULL,
   `mdp` varchar(100) NOT NULL,
   `muet` tinyint(1) NOT NULL,
   `idRole` int(11) NOT NULL,
