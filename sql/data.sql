@@ -9,8 +9,9 @@ INSERT INTO jeu (Nom, DateSortie, Description) VALUES ("La Joie De Créer", "201
 
 INSERT INTO role (Nom) VALUES ("Client"), ("Admin");
 
-INSERT INTO utilisateur (Nom, EMail, mdp, muet, idRole) VALUES ("SuperUtilisateur", "Utilisateur@gmail.com", "Super2024", 0, 1),
-    ("SuperAdmin", "Admin@gmail.com", "Super2024", 0, 2);
+--le mot de passe des deux utilisateur est Super2024
+INSERT INTO utilisateur (Nom, EMail, mdp, muet, idRole) VALUES ("SuperUtilisateur", "Utilisateur@gmail.com", "$2y$10$NZxH.5R6GaoctqV7ioiaNux/jVufSQCtE.O5brKVfuTk45i0yuA9K", 0, 1),
+    ("SuperAdmin", "Admin@gmail.com", "$2y$10$NZxH.5R6GaoctqV7ioiaNux/jVufSQCtE.O5brKVfuTk45i0yuA9K", 0, 2);
 
 INSERT INTO JEU_A_TAG (idTag, idJeu) VALUES (1, 1);
 
