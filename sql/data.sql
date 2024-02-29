@@ -1,4 +1,4 @@
-Use Steen;
+USE Steen;
 
 INSERT INTO tag (Nom) VALUES ("Horreur"),
     ("Bac a sable"),

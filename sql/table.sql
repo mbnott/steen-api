@@ -1,21 +1,4 @@
--- MariaDB dump 10.19  Distrib 10.6.16-MariaDB, for debian-linux-gnu (x86_64)
---
--- Host: localhost    Database: Steen
--- ------------------------------------------------------
--- Server version	10.6.16-MariaDB-0ubuntu0.22.04.1
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
-Use Steen;
+USE Steen;
 
 --
 -- Table structure for table `JEU_A_TAG`
@@ -36,15 +19,6 @@ CREATE TABLE `JEU_A_TAG` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `JEU_A_TAG`
---
-
-LOCK TABLES `JEU_A_TAG` WRITE;
-/*!40000 ALTER TABLE `JEU_A_TAG` DISABLE KEYS */;
-/*!40000 ALTER TABLE `JEU_A_TAG` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `UTILISATEUR_AJOUTE_JEU`
 --
 
@@ -61,15 +35,6 @@ CREATE TABLE `UTILISATEUR_AJOUTE_JEU` (
   CONSTRAINT `fk_Utilisateur_has_Jeu_Utilisateur1` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateur` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `UTILISATEUR_AJOUTE_JEU`
---
-
-LOCK TABLES `UTILISATEUR_AJOUTE_JEU` WRITE;
-/*!40000 ALTER TABLE `UTILISATEUR_AJOUTE_JEU` DISABLE KEYS */;
-/*!40000 ALTER TABLE `UTILISATEUR_AJOUTE_JEU` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `UTILISATEUR_DEVELOPPE_JEU`
@@ -90,15 +55,6 @@ CREATE TABLE `UTILISATEUR_DEVELOPPE_JEU` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `UTILISATEUR_DEVELOPPE_JEU`
---
-
-LOCK TABLES `UTILISATEUR_DEVELOPPE_JEU` WRITE;
-/*!40000 ALTER TABLE `UTILISATEUR_DEVELOPPE_JEU` DISABLE KEYS */;
-/*!40000 ALTER TABLE `UTILISATEUR_DEVELOPPE_JEU` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `UTILISATEUR_PUBLIE_JEU`
 --
 
@@ -115,15 +71,6 @@ CREATE TABLE `UTILISATEUR_PUBLIE_JEU` (
   CONSTRAINT `fk_Jeu_has_Utilisateur_Utilisateur2` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateur` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `UTILISATEUR_PUBLIE_JEU`
---
-
-LOCK TABLES `UTILISATEUR_PUBLIE_JEU` WRITE;
-/*!40000 ALTER TABLE `UTILISATEUR_PUBLIE_JEU` DISABLE KEYS */;
-/*!40000 ALTER TABLE `UTILISATEUR_PUBLIE_JEU` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `evaluation`
@@ -147,15 +94,6 @@ CREATE TABLE `evaluation` (
   CONSTRAINT `fk_Evaluation_Utilisateur1` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateur` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `evaluation`
---
-
-LOCK TABLES `evaluation` WRITE;
-/*!40000 ALTER TABLE `evaluation` DISABLE KEYS */;
-/*!40000 ALTER TABLE `evaluation` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `infraction`
@@ -182,15 +120,6 @@ CREATE TABLE `infraction` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `infraction`
---
-
-LOCK TABLES `infraction` WRITE;
-/*!40000 ALTER TABLE `infraction` DISABLE KEYS */;
-/*!40000 ALTER TABLE `infraction` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `jeu`
 --
 
@@ -208,15 +137,6 @@ CREATE TABLE `jeu` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `jeu`
---
-
-LOCK TABLES `jeu` WRITE;
-/*!40000 ALTER TABLE `jeu` DISABLE KEYS */;
-/*!40000 ALTER TABLE `jeu` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `role`
 --
 
@@ -230,15 +150,6 @@ CREATE TABLE `role` (
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `role`
---
-
-LOCK TABLES `role` WRITE;
-/*!40000 ALTER TABLE `role` DISABLE KEYS */;
-/*!40000 ALTER TABLE `role` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `tag`
@@ -256,15 +167,6 @@ CREATE TABLE `tag` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tag`
---
-
-LOCK TABLES `tag` WRITE;
-/*!40000 ALTER TABLE `tag` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tag` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `token`
 --
 
@@ -280,15 +182,6 @@ CREATE TABLE `token` (
   CONSTRAINT `fk_Token_Utilisateur1` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateur` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `token`
---
-
-LOCK TABLES `token` WRITE;
-/*!40000 ALTER TABLE `token` DISABLE KEYS */;
-/*!40000 ALTER TABLE `token` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `utilisateur`
@@ -310,24 +203,3 @@ CREATE TABLE `utilisateur` (
   KEY `fk_Utilisateur_Role1_idx` (`idRole`),
   CONSTRAINT `fk_Utilisateur_Role1` FOREIGN KEY (`idRole`) REFERENCES `role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `utilisateur`
---
-
-LOCK TABLES `utilisateur` WRITE;
-/*!40000 ALTER TABLE `utilisateur` DISABLE KEYS */;
-/*!40000 ALTER TABLE `utilisateur` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2024-02-15 15:53:52
