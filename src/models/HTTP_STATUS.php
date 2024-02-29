@@ -1,5 +1,7 @@
 <?php
+
 namespace Mbnot\SteenApi\models;
+
 enum HTTP_STATUS : int {
     case OK = 200;
     case CREATED = 201;
