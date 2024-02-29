@@ -40,7 +40,7 @@ DROP TABLE IF EXISTS `utilisateur`;
 CREATE TABLE `utilisateur` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(90) NOT NULL,
-  `eMail` varchar(90) NOT NULL,
+  `email` varchar(90) NOT NULL,
   `mdp` varchar(100) NOT NULL,
   `muet` tinyint(1) NOT NULL,
   `idRole` int(11) NOT NULL,
