@@ -203,7 +203,7 @@ DROP TABLE IF EXISTS `evaluation`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `evaluation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `recommander` tinyint(2) NOT NULL,
+  `note` int NOT NULL,
   `datePost` date NOT NULL,
   `description` mediumtext NOT NULL,
   `idUtilisateur` int(11) NOT NULL,
