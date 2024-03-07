@@ -60,7 +60,6 @@ CREATE TABLE `utilisateur` (
   `nom` varchar(90) NOT NULL,
   `email` varchar(90) NOT NULL,
   `mdp` varchar(100) NOT NULL,
-  `muet` tinyint(1) NOT NULL,
   `idRole` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
@@ -176,13 +175,13 @@ CREATE TABLE `infraction` (
   `type` varchar(30) NOT NULL,
   `description` mediumtext NOT NULL,
   `idAdmin` int(11) NOT NULL,
-  `idEmetteur` int(11) NOT NULL,
+  `idMechant` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fk_Infraction_Utilisateur1_idx` (`idAdmin`),
-  KEY `fk_Infraction_Utilisateur2_idx` (`idEmetteur`),
+  KEY `fk_Infraction_Utilisateur2_idx` (`idMechant`),
   CONSTRAINT `fk_Infraction_Utilisateur1` FOREIGN KEY (`idAdmin`) REFERENCES `utilisateur` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_Infraction_Utilisateur2` FOREIGN KEY (`idEmetteur`) REFERENCES `utilisateur` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_Infraction_Utilisateur2` FOREIGN KEY (`idMechant`) REFERENCES `utilisateur` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
