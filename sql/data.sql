@@ -13,4 +13,5 @@ INSERT INTO utilisateur (nom, email, mdp, idRole) VALUES ("SuperUtilisateur", "U
 
 INSERT INTO jeu (nom, DateSortie, Description, idDeveloppeur) VALUES ("La Joie De Créer", "2013-03-12", "La joie de création est un jeu d’horreur terrifiant en vue à la première personne", 1);
 
-INSERT INTO JEU_A_TAG (idTag, idJeu) VALUES (1, 1);
+INSERT INTO JEU_A_TAG (idTag, idJeu) VALUES (1, 1),
+    (4, 1);
