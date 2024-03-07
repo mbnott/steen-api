@@ -8,8 +8,8 @@ INSERT INTO tag (nom) VALUES ("Horreur"),
 INSERT INTO role (nom) VALUES ("Client"), ("Admin");
 
 -- le mot de passe des deux utilisateur est Super2024
-INSERT INTO utilisateur (nom, email, mdp, muet, idRole) VALUES ("SuperUtilisateur", "Utilisateur@gmail.com", "$2y$10$NZxH.5R6GaoctqV7ioiaNux/jVufSQCtE.O5brKVfuTk45i0yuA9K", 0, 1),
-    ("SuperAdmin", "Admin@gmail.com", "$2y$10$NZxH.5R6GaoctqV7ioiaNux/jVufSQCtE.O5brKVfuTk45i0yuA9K", 0, 2);
+INSERT INTO utilisateur (nom, email, mdp, idRole) VALUES ("SuperUtilisateur", "Utilisateur@gmail.com", "$2y$10$NZxH.5R6GaoctqV7ioiaNux/jVufSQCtE.O5brKVfuTk45i0yuA9K", 1),
+    ("SuperAdmin", "Admin@gmail.com", "$2y$10$NZxH.5R6GaoctqV7ioiaNux/jVufSQCtE.O5brKVfuTk45i0yuA9K", 2);
 
 INSERT INTO jeu (nom, DateSortie, Description, idDeveloppeur) VALUES ("La Joie De Créer", "2013-03-12", "La joie de création est un jeu d’horreur terrifiant en vue à la première personne", 1);
 
