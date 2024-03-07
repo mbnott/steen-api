@@ -12,6 +12,8 @@ require "Constants.php";
 class dbManager {
 
     private readonly PDO $db;
+    private const USER_ID = 1;
+    private const ADMIN_ID = 2;
 
     public function __construct()
     {
@@ -32,24 +34,30 @@ class dbManager {
         if ($data === false)
             return new loginResult(1, false);
 
-        $passwordHash = password_hash($password, PASSWORD_BCRYPT);
-        if ($passwordHash != $data["mdp"])
+        if (!password_verify($password, $data["mdp"]))
             return new loginResult(2, false);
 
         return new loginResult(0, true);
     }
 
-    public function checkToken($userId, $token) : bool {
-        $stmt = $this->db->prepare("SELECT * FROM token WHERE token = :token AND idUtilisateur = :userId");
-        $stmt->execute(["token" => $token, "userId" => $userId]);
-        return $stmt->fetchColumn();
+    public function register($nom, $email, $mdp) : string|false
+    {
+        $stmt = $this->db->prepare("INSERT INTO utilisateur (nom, email, mdp, idRole) VALUES (:nom, :email, :mdp, :roleId)");
+        $stmt->execute(["nom" => $nom, "email" => $email, "mdp" => password_hash($mdp, PASSWORD_BCRYPT), "roleId" => self::USER_ID]);
+        return $this->db->lastInsertId();
     }
 
-    public function createToken($userId) {
-        $p = new OAuthProvider();
+    public function checkToken($userId, $token) : bool {
+        $stmt = $this->db->prepare("SELECT token FROM token WHERE token = :token AND idUtilisateur = :userId");
+        $stmt->execute(["token" => $token, "userId" => $userId]);
+        return count($stmt->fetch()) > 0;
+    }
 
-        $token = $p->generateToken(80);
-        $stmt = $this->db->prepare("");
-        // TODO
+    public function createToken($userId) : string
+    {
+        $token = bin2hex(random_bytes(16));
+        $stmt = $this->db->prepare("INSERT INTO token (token, idUtilisateur) VALUES (:token, :userId)");
+        $stmt->execute(["token" => $token, "userId" => $userId]);
+        return $token;
     }
 }
