@@ -65,6 +65,6 @@ class dbManager {
     {
         $stmt = $this->db->prepare("SELECT * FROM getGames");
         $stmt->execute();
-        return array($stmt->fetch());
+        return $stmt->fetchAll();
     }
 }
