@@ -27,7 +27,6 @@ class gamesController
                 $game["dateSortie"],
                 $game["description"],
                 $game["pseudo"],
-                $game["tags"],
                 $game["note"],
             );
 
