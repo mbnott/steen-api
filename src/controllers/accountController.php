@@ -10,19 +10,6 @@ use OpenApi\Annotations as OA;
 
 class accountController
 {
-    public function login(Request $request, Response $response): Response
-    {
-        $tokenHeader = $request->getHeader("token");
-
-        $response->getBody()->write(json_encode([
-            "tokenData" => $tokenHeader
-        ]));
-
-        return $response
-            ->withHeader('content-type', 'application/json')
-            ->withStatus(HTTP_STATUS::OK->value);
-    }
-
     public function register(Request $request, Response $response): Response
     {
         // Getting body data
