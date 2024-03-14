@@ -91,9 +91,8 @@ CREATE TABLE `jeu` (
   `dateSortie` date NOT NULL,
   `description` mediumtext NOT NULL,
   `idDeveloppeur` int(11) NOT NULL,
-  PRIMARY KEY (`id`,`idDeveloppeur`),
+  PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
-  UNIQUE KEY `idDeveloppeur_UNIQUE` (`idDeveloppeur`),
   CONSTRAINT `FK_DEV_JEU` FOREIGN KEY (`idDeveloppeur`) REFERENCES `utilisateur` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
