@@ -12,7 +12,7 @@ class gamesController
 {
 
     // Fetches all games, with `tag` and `name` filter
-    public function fetchAll(Request $request, Response $response): Response
+    public function getGames(Request $request, Response $response): Response
     {
         //$request->getQueryParams();
         $db = new dbManager();
@@ -22,7 +22,7 @@ class gamesController
 
         foreach($fetchedGames as $game)
         {
-            array_push($games, new Game(
+            $games[] = new Game(
                 $game["id"],
                 $game["nom"],
                 $game["dateSortie"],
@@ -30,7 +30,7 @@ class gamesController
                 $game["pseudo"],
                 $game["tags"],
                 $game["note"],
-            ));
+            );
         }
 
         $response->getBody()->write(json_encode(

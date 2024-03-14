@@ -24,7 +24,7 @@ class dbManager {
             PDO::ATTR_EMULATE_PREPARES => false,
         ];
 
-        $db = new PDO($dsn, DB_USER, DB_PASSWORD, $options);
+        $this->db = new PDO($dsn, DB_USER, DB_PASSWORD, $options);
     }
 
     public function login($email, $password) : loginResult {
@@ -63,7 +63,7 @@ class dbManager {
 
     public function getGames() : array
     {
-        $stmt = $this->db->prepare("SELECT * FROM jeu");
+        $stmt = $this->db->prepare("SELECT * FROM Get_Games");
         $stmt->execute();
         return array($stmt->fetch());
     }
