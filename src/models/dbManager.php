@@ -63,8 +63,8 @@ class dbManager {
 
     public function getGames() : array
     {
-        $stmt = $this->db->prepare("SELECT * FROM Get_Games");
+        $stmt = $this->db->prepare("SELECT * FROM getGames");
         $stmt->execute();
-        return array($stmt->fetch());
+        return $stmt->fetchAll();
     }
 }

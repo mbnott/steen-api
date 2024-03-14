@@ -22,15 +22,14 @@ class gamesController
 
         foreach($fetchedGames as $game)
         {
-            $games[] = new Game(
+            array_push($games, new Game(
                 $game["id"],
                 $game["nom"],
                 $game["dateSortie"],
                 $game["description"],
                 $game["pseudo"],
-                $game["tags"],
                 $game["note"],
-            );
+            ));
         }
 
         $response->getBody()->write(json_encode(
@@ -39,11 +38,11 @@ class gamesController
 
         return $response
             ->withHeader('content-type', 'application/json')
-                ->withStatus(HTTP_STATUS::OK->value);
+            ->withStatus(HTTP_STATUS::OK->value);
     }
 
     public function fetch(Request $request, Response $response, array $args) : Response
     {
-        
+        $db = new dbManager();
     }
 }
