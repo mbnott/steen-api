@@ -11,7 +11,7 @@ class Game {
     public string $dateSortie;
     public string $description;
     public string $pseudo;
-    public ?int $tags;
+    public ?string $tags;
     public ?int $note;
 
     public function __construct($id, $nom, $dateSortie, $description, $pseudo, $tags,  $note = null)
