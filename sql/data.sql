@@ -30,4 +30,5 @@ INSERT INTO jeu (nom, dateSortie, description, idDeveloppeur) VALUES ("La Joie D
     ("La légende de Zelda : Souffle de la nature", "2017-03-03", "La légende de Zelda : Souffle de la nature est un jeu en monde ouvert dont le but est de tuer un être maléfique.", 1);
 
 INSERT INTO JEU_A_TAG (idTag, idJeu) VALUES (1, 1),
-    (4, 1);
+    (4, 1),
+    (2, 2);
