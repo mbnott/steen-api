@@ -20,13 +20,13 @@ $app->delete('/games/{id}/reviews/{reviewId}', [gamesController::class, 'deleteR
 
 // Account
 $app->get('/account/login', [accountController::class, 'login']); // returns a new token for the given account, if all data matches
-$app->post('/account/register', [accountController::class, 'register']);
-$app->delete('/account/{id}', [accountController::class, 'deleteAccount']);
-$app->get('/account/{id}/library', [accountController::class, 'getLibrary']);
-$app->post('/account/{id}/library', [accountController::class, 'addGame']);
-$app->get('/account/{id}/infractions', [accountController::class, 'getInfractions']);
-$app->post('/account/{id}/infractions', [accountController::class, 'addInfraction']);
-$app->delete('/account/{id}/infractions/{infractionId}', [accountController::class, 'deleteInfraction']);
+$app->post('/account/register', [accountController::class, 'register']); // TODO
+$app->delete('/account/{id}', [accountController::class, 'deleteAccount']); // TODO
+$app->get('/account/{id}/library', [accountController::class, 'getLibrary']); // TODO
+$app->post('/account/{id}/library', [accountController::class, 'addGame']); // TODO
+$app->get('/account/{id}/infractions', [accountController::class, 'getInfractions']); // TODO
+$app->post('/account/{id}/infractions', [accountController::class, 'addInfraction']); // TODO
+$app->delete('/account/{id}/infractions/{infractionId}', [accountController::class, 'deleteInfraction']); // TODO
 
 // Tags
 $app->get('/tags', [tagsController::class, 'getTags']);

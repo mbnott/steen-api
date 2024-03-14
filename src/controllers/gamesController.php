@@ -39,7 +39,7 @@ class gamesController
 
         return $response
             ->withHeader('content-type', 'application/json')
-            ->withStatus(HTTP_STATUS::NOT_YET_IMPLEMENTED->value);
+                ->withStatus(HTTP_STATUS::OK->value);
     }
 
     public function fetch(Request $request, Response $response, array $args) : Response
