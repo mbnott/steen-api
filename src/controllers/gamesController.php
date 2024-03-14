@@ -21,8 +21,7 @@ class gamesController
         $games = [];
 
         foreach($fetchedGames as $game)
-        {
-            array_push($games, new Game(
+            $games[] += new Game(
                 $game["id"],
                 $game["nom"],
                 $game["dateSortie"],
@@ -30,8 +29,7 @@ class gamesController
                 $game["pseudo"],
                 $game["tags"],
                 $game["note"],
-            ));
-        }
+            );
 
         $response->getBody()->write(json_encode(
             $games
@@ -44,6 +42,6 @@ class gamesController
 
     public function fetch(Request $request, Response $response, array $args) : Response
     {
-        
+        $db = new dbManager();
     }
 }
