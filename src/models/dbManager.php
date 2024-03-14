@@ -60,4 +60,11 @@ class dbManager {
         $stmt->execute(["token" => $token, "userId" => $userId]);
         return $token;
     }
+
+    public function getGames() : array
+    {
+        $stmt = $this->db->prepare("SELECT * FROM jeu");
+        $stmt->execute();
+        return array($stmt->fetch());
+    }
 }
