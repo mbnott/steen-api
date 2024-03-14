@@ -21,14 +21,16 @@ class gamesController
         $games = [];
 
         foreach($fetchedGames as $game)
-            $games[] = new Game(
+        {
+            array_push($games, new Game(
                 $game["id"],
                 $game["nom"],
                 $game["dateSortie"],
                 $game["description"],
                 $game["pseudo"],
                 $game["note"],
-            );
+            ));
+        }
 
         $response->getBody()->write(json_encode(
             $games
@@ -36,7 +38,7 @@ class gamesController
 
         return $response
             ->withHeader('content-type', 'application/json')
-            ->withStatus(HTTP_STATUS::NOT_YET_IMPLEMENTED->value);
+            ->withStatus(HTTP_STATUS::OK->value);
     }
 
     public function fetch(Request $request, Response $response, array $args) : Response
