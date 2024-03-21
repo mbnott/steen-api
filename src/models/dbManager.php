@@ -88,4 +88,11 @@ class dbManager {
         $stmt->execute();
         return $stmt;
     }
+
+    public  function getTags() : array
+    {
+        $stmt = $this->db->prepare("SELECT * FROM getTag");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 }
