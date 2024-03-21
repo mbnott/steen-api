@@ -2,9 +2,33 @@
 
 namespace Mbnot\SteenApi\controllers;
 use Psr\Http\Message\ResponseInterface as Response;
+use Mbnot\SteenApi\models\Tag;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Mbnot\SteenApi\Models\HTTP_STATUS;
 
 class tagsController {
 
+    public function getTags(Request $request, Response $response): Response
+    {
+        $db = new dbManager();
+
+        $fetchedTags = $db->getGames();
+        $tags = [];
+
+        foreach($fetchedTags as $tag)
+        {
+            array_push($tags, new game(
+                $tags["id"],
+                $tags["nom"]
+            ));
+        }
+
+        $response->getBody()->write(json_encode(
+            $tags
+        ));
+
+        return $response
+            ->withHeader('content-type', 'application/json')
+            ->withStatus(HTTP_STATUS::OK->value);
+    }
 }
