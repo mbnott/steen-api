@@ -45,16 +45,8 @@ class gamesController
         $db = new dbManager();
 
         $fetchedGame = $db->getGame();
-        $game = [];
-
-        array_push($game, new Game(
-            $game["id"],
-            $game["nom"],
-            $game["dateSortie"],
-            $game["description"],
-            $game["pseudo"],
-            $game["note"],
-        ));
+        $game = new Game("id", "nom", "dateSortie",
+            "description", "pseudo", "note");
 
         $response->getBody()->write(json_encode(
             $game
