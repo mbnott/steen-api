@@ -11,8 +11,8 @@ $app->get('/', [indexController::class, 'welcome']);
 
 // Games
 $app->get('/games', [gamesController::class, 'getGames']);
-$app->post('/games', [gamesController::class, 'addGame']); // TODO
-$app->get('/games/{id}', [gamesController::class, 'getGame']); // TODO
+$app->post('/games', [gamesController::class, 'addGame']);
+$app->get('/games/{id}', [gamesController::class, 'getGame']);
 $app->delete('/games/{id}', [gamesController::class, 'deleteGame']); // TODO
 $app->get('/games/{id}/reviews', [gamesController::class, 'getReviews']); // TODO
 $app->post('/games/{id}/reviews', [gamesController::class, 'addReview']); // TODO
