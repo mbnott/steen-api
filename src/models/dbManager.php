@@ -81,4 +81,11 @@ class dbManager {
         $stmt->execute(["nom" => $nom, "dateSortie" => $dateSortie, "description" => $description, "idDeveloppeur" => $idDeveloppeur]);
         return $this->db->lastInsertId();
     }
+
+    public function deleteGame($gameId) : array
+    {
+        $stmt = $this->db->prepare("DELETE FROM jeu WHERE id = $gameId");
+        $stmt->execute();
+        return $stmt;
+    }
 }
