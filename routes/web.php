@@ -19,7 +19,7 @@ $app->post('/games/{id}/reviews', [gamesController::class, 'addReview']); // TOD
 $app->delete('/games/{id}/reviews/{reviewId}', [gamesController::class, 'deleteReview']); // TODO
 
 // Account
-$app->get('/account/login', [accountController::class, 'login']); // TODO: returns a new token for the given account, if all data matches
+$app->post('/account/login', [accountController::class, 'login']); // TODO: returns a new token for the given account, if all data matches
 $app->post('/account/register', [accountController::class, 'register']);
 $app->delete('/account/{id}', [accountController::class, 'deleteAccount']); // TODO
 $app->get('/account/{id}/library', [accountController::class, 'getLibrary']); // TODO
