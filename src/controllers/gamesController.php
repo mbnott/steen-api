@@ -3,7 +3,7 @@
 namespace Mbnot\SteenApi\controllers;
 use Mbnot\SteenApi\models\HTTP_STATUS;
 use Mbnot\SteenApi\models\dbManager;
-use Mbnot\SteenApi\models\Game;
+use Mbnot\SteenApi\models\game;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -21,7 +21,7 @@ class gamesController
 
         foreach($fetchedGames as $game)
         {
-            array_push($games, new Game(
+            array_push($games, new game(
                 $game["id"],
                 $game["nom"],
                 $game["dateSortie"],
@@ -45,7 +45,7 @@ class gamesController
         $db = new dbManager();
 
         $fetchedGame = $db->getGame();
-        $game = new Game($fetchedGame["id"], $fetchedGame["nom"], $fetchedGame["dateSortie"],
+        $game = new game($fetchedGame["id"], $fetchedGame["nom"], $fetchedGame["dateSortie"],
             $fetchedGame["description"], $fetchedGame["pseudo"], $fetchedGame["note"]);
 
         $response->getBody()->write(json_encode(
@@ -76,7 +76,7 @@ class gamesController
         $gameId = $db->addGame($input->nom, $input->dateSortie, $input->description, $input->idDeveloppeur);
 
         $response->getBody()->write(json_encode([
-            "message" => "Game successfully added!",
+            "message" => "game successfully added!",
             "id" => $gameId,
         ]));
 
