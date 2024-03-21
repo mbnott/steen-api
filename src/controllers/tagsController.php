@@ -18,7 +18,7 @@ class tagsController {
 
         foreach($fetchedTags as $tag)
         {
-            array_push($tags, new game(
+            array_push($tags, new tag(
                 $tags["id"],
                 $tags["nom"]
             ));
