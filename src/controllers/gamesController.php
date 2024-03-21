@@ -45,8 +45,8 @@ class gamesController
         $db = new dbManager();
 
         $fetchedGame = $db->getGame();
-        $game = new Game("id", "nom", "dateSortie",
-            "description", "pseudo", "note");
+        $game = new Game($fetchedGame["id"], $fetchedGame["nom"], $fetchedGame["dateSortie"],
+            $fetchedGame["description"], $fetchedGame["pseudo"], $fetchedGame["note"]);
 
         $response->getBody()->write(json_encode(
             $game
@@ -79,6 +79,7 @@ class gamesController
             "message" => "Game successfully added!",
             "id" => $gameId,
         ]));
+
         return $response
             ->withHeader('content-type', 'application/json')
             ->withStatus(HTTP_STATUS::CREATED->value);
