@@ -7,7 +7,8 @@
         "slim/php-view": "^3.2",
         "slim/psr7": "^1.6",
         "zircote/swagger-php": "^4.8",
-        "ext-pdo": "*"
+        "ext-pdo": "*",
+        "doctrine/annotations": "^2.0"
     },
     "autoload": {
         "psr-4": {

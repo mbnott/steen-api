@@ -3,6 +3,7 @@
 // session_start();
 
 use Slim\Factory\AppFactory;
+use OpenApi\Annotations as OA;
 
 // Chargement automatique des classes
 require __DIR__ . '/../vendor/autoload.php';
