@@ -31,4 +31,4 @@ $app->delete('/account/{id}/infractions/{infractionId}', [accountController::cla
 // Tags
 $app->get('/tags', [tagsController::class, 'getTags']); // TODO
 $app->post('/tags', [tagsController::class, 'addTag']); // TODO
-$app->delete('/tags', [tagsController::class, 'deleteTag']); // TODO
+$app->delete('/tags/{id}', [tagsController::class, 'deleteTag']); // TODO
