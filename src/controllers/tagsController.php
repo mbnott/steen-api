@@ -18,9 +18,9 @@ class tagsController {
 
         foreach($fetchedTags as $tag)
         {
-            array_push($tags, new tag(
-                $tags["id"],
-                $tags["nom"]
+            array_push($tag, new tag(
+                $tag["id"],
+                $tag["nom"]
             ));
         }
 
