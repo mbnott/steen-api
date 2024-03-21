@@ -2,7 +2,8 @@
 
 namespace Mbnot\SteenApi\controllers;
 use Psr\Http\Message\ResponseInterface as Response;
-use Mbnot\SteenApi\models\Tag;
+use Mbnot\SteenApi\models\dbManager;
+use Mbnot\SteenApi\models\tag;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Mbnot\SteenApi\Models\HTTP_STATUS;
 
