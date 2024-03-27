@@ -59,7 +59,7 @@ CREATE TABLE `utilisateur` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(90) NOT NULL UNIQUE,
   `email` varchar(90) NOT NULL,
-  `mdp` varchar(100) NOT NULL,
+  `mdp` varchar(200) NOT NULL,
   `idRole` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
