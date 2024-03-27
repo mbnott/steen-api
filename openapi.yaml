@@ -1,0 +1,8 @@
+openapi: 3.0.0
+paths:
+  /api/data.json:
+    get:
+      operationId: 2648ff131c4cb8258417b0b47285735d
+      responses:
+        '200':
+          description: 'The data'

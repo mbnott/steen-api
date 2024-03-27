@@ -10,6 +10,15 @@ use OpenApi\Annotations as OA;
 
 class accountController
 {
+    /**
+     * @OA\Get(
+     *     path="/account/register",
+     *     @OA\Response(
+     *         response="200",
+     *         description="The data"
+     *     )
+     * )
+     */
     public function register(Request $request, Response $response): Response
     {
         // Getting body data

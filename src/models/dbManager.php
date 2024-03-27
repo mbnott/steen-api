@@ -67,4 +67,32 @@ class dbManager {
         $stmt->execute();
         return $stmt->fetchAll();
     }
+
+    public function getGame() : array
+    {
+        $stmt = $this->db->prepare("SELECT * FROM getGames");
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public function addGame($nom, $dateSortie, $description, $idDeveloppeur) : string|false
+    {
+        $stmt = $this->db->prepare("INSERT INTO jeu (nom, dateSortie, description, idDeveloppeur) VALUES (:nom, :dateSortie, :description, :idDeveloppeur)");
+        $stmt->execute(["nom" => $nom, "dateSortie" => $dateSortie, "description" => $description, "idDeveloppeur" => $idDeveloppeur]);
+        return $this->db->lastInsertId();
+    }
+
+    public function deleteGame($gameId) : array
+    {
+        $stmt = $this->db->prepare("DELETE FROM jeu WHERE id = $gameId");
+        $stmt->execute();
+        return $stmt;
+    }
+
+    public  function getTags() : array
+    {
+        $stmt = $this->db->prepare("SELECT * FROM getTag");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 }
