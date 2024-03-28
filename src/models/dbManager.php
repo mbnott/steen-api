@@ -55,6 +55,11 @@ class dbManager {
         return $data;
     }
 
+    /**
+     * Gets a user based on their token
+     * @param $token
+     * @return int|false INT if the token is valid and a user was found, false otherwise
+     */
     public function getUserByToken($token) : int|false
     {
         $stmt = $this->db->prepare("SELECT idUtilisateur FROM token WHERE token = :token");
