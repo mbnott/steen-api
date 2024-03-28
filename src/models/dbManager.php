@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mbnot\SteenApi\models;
 
 use PDO;
-use Mbnot\SteenApi\models\loginResult;
 
 require "Constants.php";
 
