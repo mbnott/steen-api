@@ -92,7 +92,7 @@ class gamesController extends baseController
                 ->withStatus(HTTP_STATUS::INTERNAL_SERVER_ERROR);
 
         $response->getBody()->write(json_encode([
-            "message" => "game successfully added!",
+            "message" => "Game successfully added!",
             "id" => $result,
         ]));
 
@@ -117,24 +117,26 @@ class gamesController extends baseController
                 ->withStatus(HTTP_STATUS::NOT_FOUND);
 
         // Check if user has the rights
-        $user = $db->getUserByToken($this->realtoken);
+        $user = $db->getUser($db->getUserByToken($this->realtoken));
 
-        if (!($user["idRole"] == $db::ADMIN_ID || $user["id"] == $game["idDeveloppeur"])) // If user does not have the rights
+        if ($user["idRole"] == $db::ADMIN_ID || $user["id"] == $game["idDeveloppeur"]) // If user does not have the rights
+        {
+            // Attempt to delete the game
+            $success = $db->deleteGame($args["id"]);
+
+            if (!$success) // On fail
+                return $response
+                    ->withStatus(HTTP_STATUS::INTERNAL_SERVER_ERROR);
+
+            // Success
+            $response->getBody()->write(json_encode(["message" => "Game successfully deleted!"]));
             return $response
-                ->withStatus(HTTP_STATUS::FORBIDDEN);
+                ->withHeader('content-type', 'application/json')
+                ->withStatus(HTTP_STATUS::OK);
+        }
 
-        // Attempt to delete the game
-        $success = $db->deleteGame($args["id"]);
-
-        if (!$success) // On fail
-            return $response
-                ->withStatus(HTTP_STATUS::INTERNAL_SERVER_ERROR);
-
-        // Success
-        $response->getBody()->write(json_encode(["message" => "Game successfully deleted"]));
         return $response
-            ->withHeader('content-type', 'application/json')
-            ->withStatus(HTTP_STATUS::OK);
+            ->withStatus(HTTP_STATUS::FORBIDDEN);
     }
 
     public function getReviews(Request $request, Response $response, array $args) : Response
