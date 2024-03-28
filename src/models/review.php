@@ -9,7 +9,7 @@ class review {
     public int $id;
     public int $note;
     public string $datePost;
-    public string $decsription;
+    public string $description;
     public int $idUtilisateur;
     public int $idJeu;
 
@@ -18,7 +18,7 @@ class review {
         $this->id = $id;
         $this->note = $note;
         $this->datePost = $datePost;
-        $this->decsription = $description;
+        $this->description = $description;
         $this->idUtilisateur = $idUtilisateur;
         $this->idJeu = $idJeu;
     }

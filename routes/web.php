@@ -12,7 +12,7 @@ $app->get('/', [indexController::class, 'welcome']);
 $app->get('/games', [gamesController::class, 'getGames']);
 $app->post('/games', [gamesController::class, 'addGame']);
 $app->get('/games/{id}', [gamesController::class, 'getGame']);
-$app->delete('/games/{id}', [gamesController::class, 'deleteGame']); // TODO
+$app->delete('/games/{id}', [gamesController::class, 'deleteGame']);
 $app->get('/games/{id}/reviews', [gamesController::class, 'getReviews']); // TODO
 $app->post('/games/{id}/reviews', [gamesController::class, 'addReview']); // TODO
 $app->delete('/games/{id}/reviews/{reviewId}', [gamesController::class, 'deleteReview']); // TODO

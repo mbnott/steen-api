@@ -83,8 +83,7 @@ class gamesController extends baseController
 
         // Getting body data & token to get user id
         $input = json_decode(file_get_contents('php://input'));
-        $tokenHeader = $request->getHeader("Authorization")[0];
-        $token = explode(' ', $tokenHeader)[1];
+        $token = $this->realtoken;
 
         // Adding game to db
         $result = $db->addGame($input->nom, $input->dateSortie, $input->description, $db->getUserByToken($token));
@@ -100,6 +99,42 @@ class gamesController extends baseController
         return $response
             ->withHeader('content-type', 'application/json')
             ->withStatus(HTTP_STATUS::CREATED);
+    }
+
+    public function deleteGame(Request $request, Response $response, array $args) : Response
+    {
+        $db = new dbManager();
+
+        // Auth verification
+        if (!self::verifyAuth($request, $db))
+            return $response
+                ->withStatus(HTTP_STATUS::UNAUTHORIZED);
+
+        // Check if game exists
+        $game = $db->getGame($args["id"]);
+        if ($game === false)
+            return $response
+                ->withStatus(HTTP_STATUS::NOT_FOUND);
+
+        // Check if user has the rights
+        $user = $db->getUserByToken($this->realtoken);
+
+        if (!($user["idRole"] == $db::ADMIN_ID || $user["id"] == $game["idDeveloppeur"])) // If user does not have the rights
+            return $response
+                ->withStatus(HTTP_STATUS::FORBIDDEN);
+
+        // Attempt to delete the game
+        $success = $db->deleteGame($args["id"]);
+
+        if (!$success) // On fail
+            return $response
+                ->withStatus(HTTP_STATUS::INTERNAL_SERVER_ERROR);
+
+        // Success
+        $response->getBody()->write(json_encode(["message" => "Game successfully deleted"]));
+        return $response
+            ->withHeader('content-type', 'application/json')
+            ->withStatus(HTTP_STATUS::OK);
     }
 
     public function getReviews(Request $request, Response $response, array $args) : Response
@@ -118,9 +153,20 @@ class gamesController extends baseController
             return $response
                 ->withStatus(HTTP_STATUS::NOT_FOUND);
 
-        $response->getBody()->write(json_encode([
-            $result,
-        ]));
+        $reviews = [];
+        foreach($result as $review)
+        {
+            array_push($reviews, new review(
+                $review["id"],
+                $review["note"],
+                $review["datePost"],
+                $review["description"],
+                $review["idUtilisateur"],
+                $review["idJeu"]
+            ));
+        }
+
+        $response->getBody()->write(json_encode($reviews));
 
         return $response
             ->withHeader('content-type', 'application/json')

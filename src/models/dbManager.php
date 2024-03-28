@@ -107,8 +107,7 @@ class dbManager {
     public function deleteGame($gameId) : bool
     {
         $stmt = $this->db->prepare("DELETE FROM jeu WHERE id = $gameId");
-        $stmt->execute();
-        return $stmt;
+        return $stmt->execute();
     }
 
     public function getReviews($idJeu) : array|false
