@@ -32,3 +32,6 @@ INSERT INTO jeu (nom, dateSortie, description, idDeveloppeur) VALUES ("La Joie D
 INSERT INTO JEU_A_TAG (idTag, idJeu) VALUES (1, 1),
     (4, 1),
     (2, 2);
+
+INSERT INTO evaluation (note, description, idUtilisateur, idJeu) VALUES (8, "test", 1, 1),
+    (3, "test", 1, 3);
