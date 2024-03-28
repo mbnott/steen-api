@@ -23,7 +23,4 @@ $app->post('/account/login', [accountController::class, 'login']);
 $app->post('/account/register', [accountController::class, 'register']);
 $app->delete('/account/{id}', [accountController::class, 'deleteAccount']); // TODO
 $app->get('/account/{id}/library', [accountController::class, 'getLibrary']); // TODO
-$app->post('/account/{id}/library', [accountController::class, 'addGame']); // TODO
-
-// Tags
-$app->get('/tags', [tagsController::class, 'getTags']);
+$app->post('/account/{id}/library', [accountController::class, 'addToLibrary']); // TODO

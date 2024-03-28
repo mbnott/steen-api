@@ -12,8 +12,8 @@ require "Constants.php";
 class dbManager {
 
     private readonly PDO $db;
-    private const USER_ID = 1;
-    private const ADMIN_ID = 2;
+    public const USER_ID = 1;
+    public const ADMIN_ID = 2;
 
     public function __construct()
     {
@@ -27,35 +27,53 @@ class dbManager {
         $this->db = new PDO($dsn, DB_USER, DB_PASSWORD, $options);
     }
 
-    public function login($email, $password) : loginResult {
-        $stmt = $this->db->prepare("SELECT * FROM Utilisateur WHERE email = :email");
+    public function login($email, $password) : string|false {
+        $stmt = $this->db->prepare("SELECT * FROM utilisateur WHERE email = :email");
         $stmt->execute(["email" => $email]);
         $data = $stmt->fetch();
         if ($data === false)
-            return new loginResult(1, false);
-
+            return false;
         if (!password_verify($password, $data["mdp"]))
-            return new loginResult(2, false);
-
-        return new loginResult(0, true);
+            return false;
+        return $this->createToken($data["id"]);
     }
 
     public function register($nom, $email, $mdp) : string|false
     {
         $stmt = $this->db->prepare("INSERT INTO utilisateur (nom, email, mdp, idRole) VALUES (:nom, :email, :mdp, :roleId)");
-        $stmt->execute(["nom" => $nom, "email" => $email, "mdp" => password_hash($mdp, PASSWORD_BCRYPT), "roleId" => self::USER_ID]);
+        $stmt->execute(["nom" => $nom, "email" => $email, "mdp" => @password_hash($mdp, PASSWORD_BCRYPT), "roleId" => self::USER_ID]);
         return $this->db->lastInsertId();
     }
 
-    public function checkToken($userId, $token) : bool {
-        $stmt = $this->db->prepare("SELECT token FROM token WHERE token = :token AND idUtilisateur = :userId");
-        $stmt->execute(["token" => $token, "userId" => $userId]);
-        return count($stmt->fetch()) > 0;
+    public function getUser($id) : array|false
+    {
+        $stmt = $this->db->prepare("SELECT * FROM utilisateur WHERE id = :id");
+        $stmt->execute(["id" => $id]);
+        $data = $stmt->fetch();
+        if ($data === false)
+            return false;
+        return $data;
+    }
+
+    public function getUserByToken($token) : int|false
+    {
+        $stmt = $this->db->prepare("SELECT idUtilisateur FROM token WHERE token = :token");
+        $stmt->execute(["token" => $token]);
+        $data = $stmt->fetchColumn();
+        if ($data === false)
+            return false;
+        return $data;
+    }
+
+    public function checkToken($token) : bool {
+        $stmt = $this->db->prepare("SELECT token FROM token WHERE token = :token");
+        $stmt->execute(["token" => $token]);
+        return $stmt->fetchColumn() === $token;
     }
 
     public function createToken($userId) : string
     {
-        $token = bin2hex(random_bytes(16));
+        $token = bin2hex(random_bytes(100));
         $stmt = $this->db->prepare("INSERT INTO token (token, idUtilisateur) VALUES (:token, :userId)");
         $stmt->execute(["token" => $token, "userId" => $userId]);
         return $token;
@@ -68,11 +86,11 @@ class dbManager {
         return $stmt->fetchAll();
     }
 
-    public function getGame() : array
+    public function getGame($id) : array|false
     {
-        $stmt = $this->db->prepare("SELECT * FROM getGames");
-        $stmt->execute();
-        return $stmt->fetch();
+        $stmt = $this->db->prepare("SELECT * FROM getGames WHERE id = :id");
+        $stmt->execute(["id" => $id]);
+        return $stmt->fetch() ?? false;
     }
 
     public function addGame($nom, $dateSortie, $description, $idDeveloppeur) : string|false
