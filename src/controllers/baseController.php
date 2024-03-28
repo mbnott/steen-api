@@ -7,8 +7,10 @@ use Mbnot\SteenApi\models\dbManager;
 
 class baseController
 {
+    protected string $realtoken; // if not null, is guaranteed to have a valid token
+
     /**
-     * Verifies the authenticity of the request based on the token, if it was given
+     * Verifies the authenticity of the request based on the token, if it was given. If everything is valid, sets $realtoken to the user's token
      * @param Request $request
      * @param dbManager $db
      * @return bool TRUE if the token is present and valid, FALSE otherwise
@@ -24,7 +26,14 @@ class baseController
             // token present, now explode
             $exploded = explode(' ', $tokenInput[0]);
             if (isset($exploded[1]))
-                return $db->checkToken($exploded[1]);
+            {
+                $success = $db->checkToken($exploded[1]);
+                    if ($success)
+                    {
+                        $this->realtoken = $exploded[1];
+                        return true;
+                    }
+            }
         }
         return false;
     }
