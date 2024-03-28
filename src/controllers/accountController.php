@@ -72,7 +72,7 @@ class accountController extends baseController
         // Valid
         $response->getBody()->write(json_encode([
             "token" => $result,
-            "id" => $db->getUserByToken($result)
+            "userid" => $db->getUserByToken($result)
         ]));
         return $response
             ->withHeader('content-type', 'application/json')
