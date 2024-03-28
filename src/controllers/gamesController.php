@@ -4,6 +4,7 @@ namespace Mbnot\SteenApi\controllers;
 use Mbnot\SteenApi\models\HTTP_STATUS;
 use Mbnot\SteenApi\models\dbManager;
 use Mbnot\SteenApi\models\game;
+use Mbnot\SteenApi\models\review;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
