@@ -282,6 +282,8 @@ Add a review to a game with his id.
 }
 ```
 #### Responses
+##### <span style="color:#F00">**400**</span> Bad Request
+Given if one of the required fields is missing.
 ##### <span style="color:#F00">**401**</span> Unauthorized
 Given if no valid token was sent in the `Authorization` header.
 ##### <span style="color:#F00">**404**</span> Not Found
