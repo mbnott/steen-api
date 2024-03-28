@@ -174,4 +174,37 @@ class gamesController extends baseController
             ->withHeader('content-type', 'application/json')
             ->withStatus(HTTP_STATUS::OK);
     }
+
+    public function addReview(Request $request, Response $response) : Response
+    {
+        $db = new dbManager();
+
+        // Auth verification
+        if (!self::verifyAuth($request, $db))
+            return $response
+                ->withStatus(HTTP_STATUS::UNAUTHORIZED);
+
+        // Fields verification
+        if (!self::verifyFields($request, ["note", "description", "idUtilisateur", "idJeu"]))
+            return $response
+                ->withStatus(HTTP_STATUS::BAD_REQUEST);
+
+        // Getting body data & token to get user id
+        $input = json_decode(file_get_contents('php://input'));
+
+        // Adding game to db
+        $result = $db->addReview($input->note, $input->description, $input->idUtilisateur, $input->idJeu);
+        if ($result === false)
+            return $response
+                ->withStatus(HTTP_STATUS::INTERNAL_SERVER_ERROR);
+
+        $response->getBody()->write(json_encode([
+            "message" => "game successfully added!",
+            "id" => $result,
+        ]));
+
+        return $response
+            ->withHeader('content-type', 'application/json')
+            ->withStatus(HTTP_STATUS::CREATED);
+    }
 }
