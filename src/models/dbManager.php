@@ -100,17 +100,27 @@ class dbManager {
         return $this->db->lastInsertId();
     }
 
-    public function deleteGame($gameId) : array
+    public function deleteGame($gameId) : bool
     {
         $stmt = $this->db->prepare("DELETE FROM jeu WHERE id = $gameId");
         $stmt->execute();
         return $stmt;
     }
 
-    public  function getTags() : array
+    public function getReviews($idJeu) : array|false
+    {
+        $stmtGame = $this->getGame($idJeu);
+        if ($stmtGame === false)
+            return false;
+        $stmt = $this->db->prepare("SELECT * FROM evaluation WHERE idJeu = :idJeu");
+        $stmt->execute(["idJeu" => $idJeu]);
+        return $stmt->fetchAll();
+    }
+
+    /*public  function getTags() : array
     {
         $stmt = $this->db->prepare("SELECT * FROM getTag");
         $stmt->execute();
         return $stmt->fetchAll();
-    }
+    }*/
 }

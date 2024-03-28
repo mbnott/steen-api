@@ -67,7 +67,7 @@ class gamesController extends baseController
             ->withStatus(HTTP_STATUS::OK);
     }
 
-    public function addGame(Request $request, Response $response): Response
+    public function addGame(Request $request, Response $response) : Response
     {
         $db = new dbManager();
 
@@ -100,5 +100,30 @@ class gamesController extends baseController
         return $response
             ->withHeader('content-type', 'application/json')
             ->withStatus(HTTP_STATUS::CREATED);
+    }
+
+    public function getReviews(Request $request, Response $response, array $args) : Response
+    {
+        $db = new dbManager();
+
+        // Auth verification
+        if (!self::verifyAuth($request, $db))
+            return $response
+                ->withStatus(HTTP_STATUS::UNAUTHORIZED);
+
+        // Fetch reviews
+        $result = $db->getReviews($args["id"]);
+
+        if ($result === false)
+            return $response
+                ->withStatus(HTTP_STATUS::NOT_FOUND);
+
+        $response->getBody()->write(json_encode([
+            $result,
+        ]));
+
+        return $response
+            ->withHeader('content-type', 'application/json')
+            ->withStatus(HTTP_STATUS::OK);
     }
 }
