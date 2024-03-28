@@ -120,6 +120,19 @@ class dbManager {
         return $stmt->fetchAll();
     }
 
+    public function addReview($note, $description, $idUtilisateur, $idJeu)
+    {
+        $stmt = $this->db->prepare("INSERT INTO evaluation (note, description, idUtilisateur, idJeu) VALUES (:note, :description, :idUtilisateur, :idJeu)");
+        $stmt->execute(["note" => $note, "description" => $description, "idUtilisateur" => $idUtilisateur, "idJeu" => $idJeu]);
+        return $this->db->lastInsertId();
+    }
+
+    public function deleteReview($evaluationId) : bool
+    {
+        $stmt = $this->db->prepare("DELETE FROM evaluation WHERE id = $evaluationId");
+        return $stmt->execute();
+    }
+
     /*public  function getTags() : array
     {
         $stmt = $this->db->prepare("SELECT * FROM getTag");
