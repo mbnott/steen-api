@@ -157,16 +157,16 @@ class gamesController extends baseController
 
         $reviews = [];
         foreach($result as $review)
-        {
             array_push($reviews, new review(
                 $review["id"],
                 $review["note"],
                 $review["datePost"],
                 $review["description"],
                 $review["idUtilisateur"],
-                $review["idJeu"]
+                $review["pseudo"],
+                $review["idJeu"],
+                $review["jeu"]
             ));
-        }
 
         $response->getBody()->write(json_encode($reviews));
 
@@ -175,7 +175,7 @@ class gamesController extends baseController
             ->withStatus(HTTP_STATUS::OK);
     }
 
-    public function addReview(Request $request, Response $response) : Response
+    public function addReview(Request $request, Response $response, array $args) : Response
     {
         $db = new dbManager();
 
@@ -185,21 +185,27 @@ class gamesController extends baseController
                 ->withStatus(HTTP_STATUS::UNAUTHORIZED);
 
         // Fields verification
-        if (!self::verifyFields($request, ["note", "description", "idUtilisateur", "idJeu"]))
+        if (!self::verifyFields($request, ["note", "description"]))
             return $response
                 ->withStatus(HTTP_STATUS::BAD_REQUEST);
+
+        // Check if game exists
+        $game = $db->getGame($args["id"]);
+        if ($game === false)
+            return $response
+                ->withStatus(HTTP_STATUS::NOT_FOUND);
 
         // Getting body data & token to get user id
         $input = json_decode(file_get_contents('php://input'));
 
         // Adding game to db
-        $result = $db->addReview($input->note, $input->description, $input->idUtilisateur, $input->idJeu);
+        $result = $db->addReview($input->note, $input->description, $db->getUserByToken($this->realtoken), $args["id"]);
         if ($result === false)
             return $response
                 ->withStatus(HTTP_STATUS::INTERNAL_SERVER_ERROR);
 
         $response->getBody()->write(json_encode([
-            "message" => "game successfully added!",
+            "message" => "Review successfully added!",
             "id" => $result,
         ]));
 

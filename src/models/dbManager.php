@@ -115,7 +115,7 @@ class dbManager {
         $stmtGame = $this->getGame($idJeu);
         if ($stmtGame === false)
             return false;
-        $stmt = $this->db->prepare("SELECT * FROM evaluation WHERE idJeu = :idJeu");
+        $stmt = $this->db->prepare("SELECT * FROM getReviews WHERE idJeu = :idJeu");
         $stmt->execute(["idJeu" => $idJeu]);
         return $stmt->fetchAll();
     }
