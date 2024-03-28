@@ -203,7 +203,7 @@ DROP TABLE IF EXISTS `evaluation`;
 CREATE TABLE `evaluation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `note` int NOT NULL,
-  `datePost` date NOT NULL,
+  `datePost` date DEFAULT CURRENT_TIMESTAMP() NOT NULL,
   `description` mediumtext NOT NULL,
   `idUtilisateur` int(11) NOT NULL,
   `idJeu` int(11) NOT NULL,
