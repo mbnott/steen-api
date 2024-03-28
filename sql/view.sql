@@ -21,7 +21,7 @@ GROUP BY jeu.id;
 
 DROP VIEW IF EXISTS getReviews;
 CREATE VIEW `getReviews` AS
-SELECT evaluation.id,  evaluation.note, evaluation.datePost, evaluation.description, utilisateur.nom AS pseudo, jeu.nom as jeu
+SELECT evaluation.id,  evaluation.note, evaluation.datePost, evaluation.description, utilisateur.id as idUtilisateur, utilisateur.nom AS pseudo, jeu.id as idJeu, jeu.nom as jeu
 FROM evaluation
 JOIN utilisateur ON utilisateur.id = evaluation.idUtilisateur
 JOIN jeu ON jeu.id = evaluation.idJeu;
