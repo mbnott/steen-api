@@ -5,7 +5,6 @@ require '../vendor/autoload.php';
 use Mbnot\SteenApi\controllers\indexController;
 use Mbnot\SteenApi\controllers\gamesController;
 use Mbnot\SteenApi\controllers\accountController;
-use Mbnot\SteenApi\controllers\tagsController;
 
 $app->get('/', [indexController::class, 'welcome']);
 
