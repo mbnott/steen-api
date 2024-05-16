@@ -1,3 +1,9 @@
+<!--
+Autheurs:   ***REMOVED***, ***REMOVED***
+Classe:     ***REMOVED***
+Projet:     Steen
+-->
+
 <?php
 global $app;
 require '../vendor/autoload.php';

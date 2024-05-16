@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Auteurs:     ***REMOVED***, ***REMOVED***, ***REMOVED***
+ * Classe:      ***REMOVED***
+ * Projet:      Steen
+ */
+
 declare(strict_types=1);
 
 namespace Mbnot\SteenApi\models;
@@ -14,6 +20,7 @@ class dbManager {
     public const USER_ID = 1;
     public const ADMIN_ID = 2;
 
+    // ***REMOVED***
     public function __construct()
     {
         $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=' . DB_CHARSET;
@@ -26,6 +33,7 @@ class dbManager {
         $this->db = new PDO($dsn, DB_USER, DB_PASSWORD, $options);
     }
 
+    // ***REMOVED***
     public function login($email, $password) : string|false {
         $stmt = $this->db->prepare("SELECT * FROM utilisateur WHERE email = :email");
         $stmt->execute(["email" => $email]);
@@ -37,6 +45,7 @@ class dbManager {
         return $this->createToken($data["id"]);
     }
 
+    // ***REMOVED***
     public function register($nom, $email, $mdp) : string|false
     {
         $stmt = $this->db->prepare("INSERT INTO utilisateur (nom, email, mdp, idRole) VALUES (:nom, :email, :mdp, :roleId)");
@@ -44,6 +53,7 @@ class dbManager {
         return $this->db->lastInsertId();
     }
 
+    // ***REMOVED***
     public function getUser($id) : array|false
     {
         $stmt = $this->db->prepare("SELECT * FROM utilisateur WHERE id = :id");
@@ -59,6 +69,7 @@ class dbManager {
      * @param $token
      * @return int|false INT if the token is valid and a user was found, false otherwise
      */
+    // ***REMOVED***
     public function getUserByToken($token) : int|false
     {
         $stmt = $this->db->prepare("SELECT idUtilisateur FROM token WHERE token = :token");
@@ -69,12 +80,14 @@ class dbManager {
         return $data;
     }
 
+    // ***REMOVED***
     public function checkToken($token) : bool {
         $stmt = $this->db->prepare("SELECT token FROM token WHERE token = :token");
         $stmt->execute(["token" => $token]);
         return $stmt->fetchColumn() === $token;
     }
 
+    // ***REMOVED***
     public function createToken($userId) : string
     {
         $token = bin2hex(random_bytes(100));
@@ -83,6 +96,7 @@ class dbManager {
         return $token;
     }
 
+    // ***REMOVED***
     public function getGames() : array
     {
         $stmt = $this->db->prepare("SELECT * FROM getGames");
@@ -90,6 +104,7 @@ class dbManager {
         return $stmt->fetchAll();
     }
 
+    // ***REMOVED***, ***REMOVED***
     public function getGame($id) : array|false
     {
         $stmt = $this->db->prepare("SELECT * FROM getGames WHERE id = :id");
@@ -97,6 +112,7 @@ class dbManager {
         return $stmt->fetch() ?? false;
     }
 
+    // ***REMOVED***
     public function addGame($nom, $dateSortie, $description, $idDeveloppeur) : string|false
     {
         $stmt = $this->db->prepare("INSERT INTO jeu (nom, dateSortie, description, idDeveloppeur) VALUES (:nom, :dateSortie, :description, :idDeveloppeur)");
@@ -104,12 +120,14 @@ class dbManager {
         return $this->db->lastInsertId();
     }
 
+    // ***REMOVED***
     public function deleteGame($gameId) : bool
     {
         $stmt = $this->db->prepare("DELETE FROM jeu WHERE id = $gameId");
         return $stmt->execute();
     }
 
+    // ***REMOVED***
     public function getReviews($idJeu) : array|false
     {
         $stmtGame = $this->getGame($idJeu);
@@ -120,6 +138,7 @@ class dbManager {
         return $stmt->fetchAll();
     }
 
+    // ***REMOVED***
     public function addReview($note, $description, $idUtilisateur, $idJeu)
     {
         $stmt = $this->db->prepare("INSERT INTO evaluation (note, description, idUtilisateur, idJeu) VALUES (:note, :description, :idUtilisateur, :idJeu)");
@@ -127,6 +146,7 @@ class dbManager {
         return $this->db->lastInsertId();
     }
 
+    // ***REMOVED***
     public function deleteReview($evaluationId) : bool
     {
         $stmt = $this->db->prepare("DELETE FROM evaluation WHERE id = $evaluationId");

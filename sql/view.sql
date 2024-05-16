@@ -1,3 +1,7 @@
+-- Auteurs:     ***REMOVED***
+-- Classe:      ***REMOVED***
+-- Projet:      Steen
+
 SET sql_mode = 'TRADITIONAL';
 USE Steen;
 

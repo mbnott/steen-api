@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Auteurs:     ***REMOVED***
+ * Classe:      ***REMOVED***
+ * Projet:      Steen
+ */
+
 namespace Mbnot\SteenApi\controllers;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;

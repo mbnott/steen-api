@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Auteurs:     ***REMOVED***, ***REMOVED***, ***REMOVED***
+ * Classe:      ***REMOVED***
+ * Projet:      Steen
+ */
+
 namespace Mbnot\SteenApi\controllers;
 
 use Mbnot\SteenApi\models\dbManager;

@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Auteurs:     ***REMOVED***, ***REMOVED***, ***REMOVED***
+ * Classe:      ***REMOVED***
+ * Projet:      Steen
+ */
+
 namespace Mbnot\SteenApi\controllers;
 use Mbnot\SteenApi\models\HTTP_STATUS;
 use Mbnot\SteenApi\models\dbManager;
@@ -7,7 +13,6 @@ use Mbnot\SteenApi\models\game;
 use Mbnot\SteenApi\models\review;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-
 
 class gamesController extends baseController
 {
@@ -42,6 +47,7 @@ class gamesController extends baseController
             ->withStatus(HTTP_STATUS::OK);
     }
 
+    // ***REMOVED***, ***REMOVED***
     public function getGame(Request $request, Response $response, array $args) : Response
     {
         $db = new dbManager();
@@ -67,6 +73,7 @@ class gamesController extends baseController
             ->withStatus(HTTP_STATUS::OK);
     }
 
+    // ***REMOVED***, ***REMOVED***
     public function addGame(Request $request, Response $response) : Response
     {
         $db = new dbManager();
@@ -101,6 +108,7 @@ class gamesController extends baseController
             ->withStatus(HTTP_STATUS::CREATED);
     }
 
+    // ***REMOVED***
     public function deleteGame(Request $request, Response $response, array $args) : Response
     {
         $db = new dbManager();
@@ -139,6 +147,7 @@ class gamesController extends baseController
             ->withStatus(HTTP_STATUS::FORBIDDEN);
     }
 
+    // ***REMOVED***, ***REMOVED***
     public function getReviews(Request $request, Response $response, array $args) : Response
     {
         $db = new dbManager();
@@ -175,6 +184,7 @@ class gamesController extends baseController
             ->withStatus(HTTP_STATUS::OK);
     }
 
+    // ***REMOVED***, ***REMOVED***
     public function addReview(Request $request, Response $response, array $args) : Response
     {
         $db = new dbManager();

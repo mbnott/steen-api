@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Auteurs:     ***REMOVED***
+ * Classe:      ***REMOVED***
+ * Projet:      Steen
+ */
+
 namespace Mbnot\SteenApi\models;
 
 enum HTTP_STATUS : int {
