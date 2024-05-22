@@ -39,12 +39,12 @@ Given if one of the required fields is missing.
 Given if the data given does not coincide with the stored fields.
 ##### <span style="color:#0F0">**200**</span> OK
 Given if all fields are present and matches with the stored database fields.  
-The response body will return the user's `<userid>` and a new `<token>`.
+The response body will return the user's `<id>` and a new `<token>`.
 It is in `JSON` format, with the header `content-type/json`.
 ###### Body
 ```json
 {
-    "userid" : <userid>,
+    "id" : <id>,
     "token" : <token>
 }
 ```
@@ -78,11 +78,11 @@ Fields that represent the registering user's data.
 Given if one of the required fields is missing.
 ##### <span style="color:#0F0">**201**</span> Created
 Given if all fields are present, valid and have been successfully added to the database.
-The response body will return the user's `<userid>` and a new `<token>`. It is in `JSON` format, with the header `content-type/json`.
+The response body will return the user's `<id>` and a new `<token>`. It is in `JSON` format, with the header `content-type/json`.
 ###### Body
 ```json
 {
-    "userid" : <userid>,
+    "id" : <id>,
     "token" : <token>
 }
 ```
