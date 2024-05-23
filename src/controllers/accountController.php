@@ -43,7 +43,6 @@ class accountController extends baseController
         $token = $db->createToken($userId);
 
         $response->getBody()->write(json_encode([
-            "message" => "Account successfully created!",
             "id" => $userId,
             "token" => $token
         ]));
@@ -77,8 +76,8 @@ class accountController extends baseController
         }
         // Valid
         $response->getBody()->write(json_encode([
+            "id" => $db->getUserByToken($result),
             "token" => $result,
-            "userid" => $db->getUserByToken($result)
         ]));
         return $response
             ->withHeader('content-type', 'application/json')
