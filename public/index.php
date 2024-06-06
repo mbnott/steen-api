@@ -1,9 +1,3 @@
-<!--
-Auteurs:    ***REMOVED***
-Classe:     ***REMOVED***
-Projet:     Steen
--->
-
 <?php
 
 // session_start();

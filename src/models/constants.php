@@ -1,9 +1,3 @@
-<!--
-Auteurs:    ***REMOVED***
-Classe:     ***REMOVED***
-Projet:     Steen
--->
-
 <?php
 const DB_HOST = 'localhost';
 const DB_NAME = 'Steen';

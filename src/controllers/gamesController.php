@@ -37,7 +37,7 @@ class gamesController extends baseController
                 $game["dateSortie"],
                 $game["description"],
                 $game["pseudo"],
-                $game["note"],
+                floatval($game["note"]),
             ));
 
         $response->getBody()->write(json_encode($games));
