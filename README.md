@@ -3,7 +3,7 @@ The RESTful API of Steen, a midpoint between Steen's server and user interfaces.
 
 ## Links
 Steen Desktop app (discontinued): [steen-desktop](https://github.com/mbnott/steen-desktop)  
-Steen Web App: [sten-web](https://github.com/mbnott/steen-web)
+Steen Web App: [steen-web](https://github.com/mbnott/steen-web)
 
 ## Usage
 You can find the documentation [Here](https://github.com/mbnott/steen-api/blob/main/documentation.md). It contains all the data on where and how to do HTTP requests to steen-api endpoints.
