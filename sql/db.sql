@@ -1,7 +1,3 @@
--- Auteurs:     ***REMOVED***
--- Classe:      ***REMOVED***
--- Projet:      Steen
-
 DROP DATABASE IF EXISTS Steen;
 CREATE DATABASE Steen;
 USE Steen;

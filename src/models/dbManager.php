@@ -1,11 +1,5 @@
 <?php
 
-/*
- * Auteurs:     ***REMOVED***, ***REMOVED***, ***REMOVED***
- * Classe:      ***REMOVED***
- * Projet:      Steen
- */
-
 declare(strict_types=1);
 
 namespace Mbnot\SteenApi\models;
