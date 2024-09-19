@@ -1,7 +1,3 @@
--- Auteurs:     ***REMOVED***
--- Classe:      ***REMOVED***
--- Projet:      Steen
-
 USE Steen;
 
 INSERT INTO tag (nom) VALUES ("Horreur"),
