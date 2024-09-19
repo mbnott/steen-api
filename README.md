@@ -1,5 +1,5 @@
 # steen-api
-The RESTful API of Steen, a midpoint between Steen's server and user interfaces. Allows Fetching, Creating, Modifying and Deleting data.
+The RESTful API of Steen, a midpoint between Steen's database and user interfaces. Allows Fetching, Creating, Modifying and Deleting data.
 
 ## Links
 Steen Desktop app (discontinued): [steen-desktop](https://github.com/mbnott/steen-desktop)  
