@@ -21,7 +21,7 @@ This is a small guide on how to setup steen-api on a local ubuntu machine/WSL. M
    - `mysql -u [votre user] -p < view.sql`
    - `mysql -u [votre user] -p < data.sql`
 5. Copy to apache config file to sites-available: `sudo cp ./steen-api/apache/steen.api.conf /etc/apache2/sites-available/`
-6. Enable the apache rewrite module with `sudo a2enmod rewrite` and activate the website with `sudo a2ensite api.reflexito.game`
+6. Enable the apache rewrite module with `sudo a2enmod rewrite` and activate the website with `sudo a2ensite steen.api`
 7. Restart apache: `sudo service apache2 start`
 Your website should now be accessible from requests to your server with the `steen.api` url. You can set up a virtual host on windows with the guide below.
 ## Windows Virtual Host
