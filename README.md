@@ -27,11 +27,11 @@ git clone https://github.com/mbnott/steen-api.git
 ```  
 4. Move to the steen-api sql folder with `cd ./steen-api/sql` and execute each sql script in this order (don't forget to change the `[your user]` value):
    - `mysql -u [your user] -p < db.sql`
-   - `mysql -u [votre user] -p < tables.sql`
-   - `mysql -u [votre user] -p < view.sql`
-   - `mysql -u [votre user] -p < data.sql`
+   - `mysql -u [your user] -p < tables.sql`
+   - `mysql -u [your user] -p < view.sql`
+   - `mysql -u [your user] -p < data.sql`
 
-5. Copy to apache config file to sites-available:
+5. Copy the apache config file to sites-available:
 ```sh
 sudo cp ./steen-api/apache/steen.api.conf /etc/apache2/sites-available/
 ```
