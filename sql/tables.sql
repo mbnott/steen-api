@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS `tag`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tag` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(30) NOT NULL,
+  `name` varchar(30) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
@@ -33,7 +33,7 @@ DROP TABLE IF EXISTS `role`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(30) NOT NULL,
+  `name` varchar(30) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
@@ -49,61 +49,61 @@ LOCK TABLES `role` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `utilisateur`
+-- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `utilisateur`;
+DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `utilisateur` (
+CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(90) NOT NULL UNIQUE,
+  `name` varchar(90) NOT NULL UNIQUE,
   `email` varchar(90) NOT NULL,
-  `mdp` varchar(200) NOT NULL,
+  `password` varchar(200) NOT NULL,
   `idRole` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
-  UNIQUE KEY `Nom_UNIQUE` (`nom`),
-  KEY `fk_Utilisateur_Role1_idx` (`idRole`),
-  CONSTRAINT `fk_Utilisateur_Role1` FOREIGN KEY (`idRole`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  UNIQUE KEY `name_UNIQUE` (`name`),
+  KEY `fk_user_role1_idx` (`idRole`),
+  CONSTRAINT `fk_user_role1` FOREIGN KEY (`idRole`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `utilisateur`
+-- Dumping data for table `user`
 --
 
-LOCK TABLES `utilisateur` WRITE;
-/*!40000 ALTER TABLE `utilisateur` DISABLE KEYS */;
-/*!40000 ALTER TABLE `utilisateur` ENABLE KEYS */;
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `jeu`
+-- Table structure for table `app`
 --
 
-DROP TABLE IF EXISTS `jeu`;
+DROP TABLE IF EXISTS `app`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `jeu` (
+CREATE TABLE `app` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(100) NOT NULL,
-  `dateSortie` date NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `releaseDate` date NOT NULL,
   `description` mediumtext NOT NULL,
-  `idDeveloppeur` int(11) NOT NULL,
+  `idDev` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
-  CONSTRAINT `FK_DEV_JEU` FOREIGN KEY (`idDeveloppeur`) REFERENCES `utilisateur` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_DEV_JEU` FOREIGN KEY (`idDev`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `jeu`
+-- Dumping data for table `app`
 --
 
-LOCK TABLES `jeu` WRITE;
-/*!40000 ALTER TABLE `jeu` DISABLE KEYS */;
-/*!40000 ALTER TABLE `jeu` ENABLE KEYS */;
+LOCK TABLES `app` WRITE;
+/*!40000 ALTER TABLE `app` DISABLE KEYS */;
+/*!40000 ALTER TABLE `app` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -116,11 +116,11 @@ DROP TABLE IF EXISTS `token`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `token` (
   `token` varchar(200) NOT NULL,
-  `idUtilisateur` int(11) NOT NULL,
+  `idUser` int(11) NOT NULL,
   PRIMARY KEY (`token`),
   UNIQUE KEY `Token_UNIQUE` (`token`),
-  KEY `fk_Token_Utilisateur1_idx` (`idUtilisateur`),
-  CONSTRAINT `fk_Token_Utilisateur1` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateur` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `fk_token_User1_idx` (`idUser`),
+  CONSTRAINT `fk_token_User1` FOREIGN KEY (`idUser`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -134,30 +134,30 @@ LOCK TABLES `token` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `JEU_A_TAG`
+-- Table structure for table `APP_HAS_TAG`
 --
 
-DROP TABLE IF EXISTS `JEU_A_TAG`;
+DROP TABLE IF EXISTS `APP_HAS_TAG`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `JEU_A_TAG` (
+CREATE TABLE `APP_HAS_TAG` (
   `idTag` int(11) NOT NULL,
-  `idJeu` int(11) NOT NULL,
-  PRIMARY KEY (`idTag`,`idJeu`),
-  KEY `fk_Tag_has_Jeu_Jeu1_idx` (`idJeu`),
-  KEY `fk_Tag_has_Jeu_Tag1_idx` (`idTag`),
-  CONSTRAINT `fk_Tag_has_Jeu_Jeu1` FOREIGN KEY (`idJeu`) REFERENCES `jeu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_Tag_has_Jeu_Tag1` FOREIGN KEY (`idTag`) REFERENCES `tag` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  `idApp` int(11) NOT NULL,
+  PRIMARY KEY (`idTag`,`idApp`),
+  KEY `fk_App_has_tag_App1_idx` (`idApp`),
+  KEY `fk_App_has_tag_Tag1_idx` (`idTag`),
+  CONSTRAINT `fk_App_has_tag_App1` FOREIGN KEY (`idApp`) REFERENCES `app` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_App_has_tag_Tag1` FOREIGN KEY (`idTag`) REFERENCES `tag` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `JEU_A_TAG`
+-- Dumping data for table `APP_HAS_TAG`
 --
 
-LOCK TABLES `JEU_A_TAG` WRITE;
-/*!40000 ALTER TABLE `JEU_A_TAG` DISABLE KEYS */;
-/*!40000 ALTER TABLE `JEU_A_TAG` ENABLE KEYS */;
+LOCK TABLES `APP_HAS_TAG` WRITE;
+/*!40000 ALTER TABLE `APP_HAS_TAG` DISABLE KEYS */;
+/*!40000 ALTER TABLE `APP_HAS_TAG` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -169,18 +169,18 @@ DROP TABLE IF EXISTS `infraction`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `infraction` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `dateCreation` date NOT NULL,
-  `datePeremption` date DEFAULT NULL,
+  `creationDate` date NOT NULL,
+  `expiryDate` date DEFAULT NULL,
   `type` varchar(30) NOT NULL,
   `description` mediumtext NOT NULL,
   `idAdmin` int(11) NOT NULL,
-  `idMechant` int(11) NOT NULL,
+  `idRulebreaker` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
-  KEY `fk_Infraction_Utilisateur1_idx` (`idAdmin`),
-  KEY `fk_Infraction_Utilisateur2_idx` (`idMechant`),
-  CONSTRAINT `fk_Infraction_Utilisateur1` FOREIGN KEY (`idAdmin`) REFERENCES `utilisateur` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_Infraction_Utilisateur2` FOREIGN KEY (`idMechant`) REFERENCES `utilisateur` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `fk_Infraction_User1_idx` (`idAdmin`),
+  KEY `fk_Infraction_User2_idx` (`idRulebreaker`),
+  CONSTRAINT `fk_Infraction_User1` FOREIGN KEY (`idAdmin`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_Infraction_User2` FOREIGN KEY (`idRulebreaker`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -194,60 +194,60 @@ LOCK TABLES `infraction` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `evaluation`
+-- Table structure for table `review`
 --
 
-DROP TABLE IF EXISTS `evaluation`;
+DROP TABLE IF EXISTS `review`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `evaluation` (
+CREATE TABLE `review` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `note` int NOT NULL,
-  `datePost` date DEFAULT CURRENT_TIMESTAMP() NOT NULL,
+  `creationDate` date DEFAULT CURRENT_TIMESTAMP() NOT NULL,
   `description` mediumtext NOT NULL,
-  `idUtilisateur` int(11) NOT NULL,
-  `idJeu` int(11) NOT NULL,
+  `idUser` int(11) NOT NULL,
+  `idApp` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
-  KEY `fk_Evaluation_Utilisateur1_idx` (`idUtilisateur`),
-  KEY `fk_Evaluation_Jeu1_idx` (`idJeu`),
-  CONSTRAINT `fk_Evaluation_Jeu1` FOREIGN KEY (`idJeu`) REFERENCES `jeu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_Evaluation_Utilisateur1` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateur` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `fk_Review_User1_idx` (`idUser`),
+  KEY `fk_Review_App1_idx` (`idApp`),
+  CONSTRAINT `fk_Review_App1` FOREIGN KEY (`idApp`) REFERENCES `app` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_Review_User1` FOREIGN KEY (`idUser`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `evaluation`
+-- Dumping data for table `review`
 --
 
-LOCK TABLES `evaluation` WRITE;
-/*!40000 ALTER TABLE `evaluation` DISABLE KEYS */;
-/*!40000 ALTER TABLE `evaluation` ENABLE KEYS */;
+LOCK TABLES `review` WRITE;
+/*!40000 ALTER TABLE `review` DISABLE KEYS */;
+/*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `JEU_DANS_BIBLIOTHEQUE`
+-- Table structure for table `APP_IN_LIBRARY`
 --
 
-DROP TABLE IF EXISTS `JEU_DANS_BIBLIOTHEQUE`;
+DROP TABLE IF EXISTS `APP_IN_LIBRARY`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `JEU_DANS_BIBLIOTHEQUE` (
-  `idUtilisateur` int(11) NOT NULL,
-  `idJeu` int(11) NOT NULL,
-  PRIMARY KEY (`idUtilisateur`,`idJeu`),
-  KEY `fk_Utilisateur_has_Jeu_Jeu1_idx` (`idJeu`),
-  KEY `fk_Utilisateur_has_Jeu_Utilisateur1_idx` (`idUtilisateur`),
-  CONSTRAINT `fk_Utilisateur_has_Jeu_Jeu1` FOREIGN KEY (`idJeu`) REFERENCES `jeu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_Utilisateur_has_Jeu_Utilisateur1` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateur` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+CREATE TABLE `APP_IN_LIBRARY` (
+  `idUser` int(11) NOT NULL,
+  `idApp` int(11) NOT NULL,
+  PRIMARY KEY (`idUser`,`idApp`),
+  KEY `fk_User_has_Game_App1_idx` (`idApp`),
+  KEY `fk_User_has_Game_User1_idx` (`idUser`),
+  CONSTRAINT `fk_User_has_Game_App1` FOREIGN KEY (`idApp`) REFERENCES `app` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_User_has_Game_User1` FOREIGN KEY (`idUser`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `JEU_DANS_BIBLIOTHEQUE`
+-- Dumping data for table `APP_IN_LIBRARY`
 --
 
-LOCK TABLES `JEU_DANS_BIBLIOTHEQUE` WRITE;
-/*!40000 ALTER TABLE `JEU_DANS_BIBLIOTHEQUE` DISABLE KEYS */;
-/*!40000 ALTER TABLE `JEU_DANS_BIBLIOTHEQUE` ENABLE KEYS */;
+LOCK TABLES `APP_IN_LIBRARY` WRITE;
+/*!40000 ALTER TABLE `APP_IN_LIBRARY` DISABLE KEYS */;
+/*!40000 ALTER TABLE `APP_IN_LIBRARY` ENABLE KEYS */;
 UNLOCK TABLES;

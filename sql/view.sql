@@ -3,25 +3,25 @@ USE Steen;
 
 DROP VIEW IF EXISTS getGamesWTag;
 CREATE VIEW `getGamesWTag` AS
-SELECT jeu.id,  jeu.nom, jeu.dateSortie, jeu.description, utilisateur.nom AS pseudo, GROUP_CONCAT(tag.nom SEPARATOR ',') as tags, AVG(evaluation.note) as note
-FROM jeu
-JOIN utilisateur ON utilisateur.id = jeu.idDeveloppeur
-JOIN JEU_A_TAG AS JAT ON JAT.idJeu = jeu.id
-JOIN tag ON tag.id = JAT.idTag
-LEFT JOIN evaluation ON evaluation.idJeu = jeu.id
-GROUP BY jeu.id;
+SELECT app.id,  app.name, app.releaseDate, app.description, user.name AS pseudo, GROUP_CONCAT(tag.name SEPARATOR ',') as tags, AVG(review.note) as note
+FROM app
+JOIN user ON user.id = app.idDev
+JOIN APP_HAS_TAG AS AHT ON AHT.idApp = app.id
+JOIN tag ON tag.id = AHT.idTag
+LEFT JOIN review ON review.idApp = app.id
+GROUP BY app.id;
 
 DROP VIEW IF EXISTS getGames;
 CREATE VIEW `getGames` AS
-SELECT jeu.id,  jeu.nom, jeu.dateSortie, jeu.description, jeu.idDeveloppeur, utilisateur.nom AS pseudo, AVG(evaluation.note) as note
-FROM jeu
-JOIN utilisateur ON utilisateur.id = jeu.idDeveloppeur
-LEFT JOIN evaluation ON evaluation.idJeu = jeu.id
-GROUP BY jeu.id;
+SELECT app.id,  app.name, app.releaseDate, app.description, app.idDev, user.name AS pseudo, AVG(review.note) as note
+FROM app
+JOIN user ON user.id = app.idDev
+LEFT JOIN review ON review.idApp = app.id
+GROUP BY app.id;
 
 DROP VIEW IF EXISTS getReviews;
 CREATE VIEW `getReviews` AS
-SELECT evaluation.id,  evaluation.note, evaluation.datePost, evaluation.description, utilisateur.id as idUtilisateur, utilisateur.nom AS pseudo, jeu.id as idJeu, jeu.nom as jeu
-FROM evaluation
-JOIN utilisateur ON utilisateur.id = evaluation.idUtilisateur
-JOIN jeu ON jeu.id = evaluation.idJeu;
+SELECT review.id,  review.note, review.creationDate, review.description, user.id as idUser, user.name AS pseudo, app.id as idApp, app.name as app
+FROM review
+JOIN user ON user.id = review.idUser
+JOIN app ON app.id = review.idApp;
