@@ -119,10 +119,10 @@ Given if authentication was successful and games were found.
 [
     {
         "id" : <id>
-        "nom" : <nom>,
-        "dateSortie" : <dateSortie>,
+        "name" : <name>,
+        "releaseDate" : <releaseDate>,
         "description" : <description>,
-        "pseudo" : <pseudo>,
+        "devName" : <devName>,
         "note" : <note>
     },
     ...
@@ -145,7 +145,7 @@ Adds a game to Steen.
 ```json
 {
     "name" : <name>,
-    "dateSortie" : <dateSortie>,
+    "releaseDate" : <releaseDate>,
     "description" : <description>
 }
 ```
@@ -190,10 +190,10 @@ Given if game was returned successfully.
 ```json
 {
     "id" : <id>
-    "nom" : <nom>,
-    "dateSortie" : <dateSortie>,
+    "name" : <name>,
+    "releaseDate" : <releaseDate>,
     "description" : <description>,
-    "pseudo" : <pseudo>,
+    "devName" : <devName>,
     "note" : <note>
 }
 ```
@@ -254,12 +254,12 @@ Given if the reviews were successfully returned.
 {
     "id" : <id>,
     "note" : <note>,
-    "datePost" : <datePost>,
+    "creationDate" : <creationDate>,
     "description" : <description>,
-    "idUtilisateur" : <idUtilisateur>,
-    "pseudo" : <pseudo>,
-    "idJeu" : <idJeu>,
-    "jeu" : <jeu>
+    "authorId" : <authorId>,
+    "authorName" : <authorName>,
+    "gameId" : <gameId>,
+    "gameName" : <gameName>
 }
 ```
 ###### Headers
