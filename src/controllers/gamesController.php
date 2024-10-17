@@ -121,7 +121,7 @@ class gamesController extends baseController
         // Check if user has the rights
         $user = $db->getUser($db->getUserByToken($this->realtoken));
 
-        if ($user["idRole"] == $db::ADMIN_ID || $user["id"] == $game["idDeveloppeur"]) // If user does not have the rights
+        if ($user["idRole"] == $db::ADMIN_ID || $user["id"] == $game["devId"]) // If user does not have the rights
         {
             // Attempt to delete the game
             $success = $db->deleteGame($args["id"]);
@@ -167,8 +167,8 @@ class gamesController extends baseController
                 $review["description"],
                 $review["authorId"],
                 $review["authorName"],
-                $review["gameId"],
-                $review["gameName"]
+                $review["appId"],
+                $review["appName"]
             ));
 
         $response->getBody()->write(json_encode($reviews));
