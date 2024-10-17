@@ -28,9 +28,9 @@ class AppsController extends baseController
             array_push($apps, new App(
                 $app["id"],
                 $app["nom"],
-                $app["dateSortie"],
+                $app["releaseDate"],
                 $app["description"],
-                $app["pseudo"],
+                $app["devName"],
                 floatval($app["note"]),
             ));
 
@@ -58,8 +58,8 @@ class AppsController extends baseController
                 ->withStatus(HTTP_STATUS::NOT_FOUND);
 
         $response->getBody()->write(json_encode(
-            new App($fetchedApp["id"], $fetchedApp["nom"], $fetchedApp["dateSortie"],
-            $fetchedApp["description"], $fetchedApp["pseudo"], $fetchedApp["note"])
+            new App($fetchedApp["id"], $fetchedApp["nom"], $fetchedApp["releaseDate"],
+            $fetchedApp["description"], $fetchedApp["devName"], $fetchedApp["note"])
         ));
 
         return $response
@@ -78,7 +78,7 @@ class AppsController extends baseController
                 ->withStatus(HTTP_STATUS::UNAUTHORIZED);
 
         // Fields verification
-        if (!self::verifyFields($request, ["nom", "dateSortie", "description"]))
+        if (!self::verifyFields($request, ["nom", "releaseDate", "description"]))
             return $response
                 ->withStatus(HTTP_STATUS::BAD_REQUEST);
 
@@ -87,7 +87,7 @@ class AppsController extends baseController
         $token = $this->realtoken;
 
         // Adding app to db
-        $result = $db->addApp($input->nom, $input->dateSortie, $input->description, $db->getUserByToken($token));
+        $result = $db->addApp($input->nom, $input->releaseDate, $input->description, $db->getUserByToken($token));
         if ($result === false)
             return $response
                 ->withStatus(HTTP_STATUS::INTERNAL_SERVER_ERROR);
@@ -166,9 +166,9 @@ class AppsController extends baseController
                 $review["datePost"],
                 $review["description"],
                 $review["idUtilisateur"],
-                $review["pseudo"],
-                $review["idJeu"],
-                $review["jeu"]
+                $review["authorName"],
+                $review["appId"],
+                $review["appName"]
             ));
 
         $response->getBody()->write(json_encode($reviews));

@@ -29,28 +29,28 @@ class dbManager {
 
     // ***REMOVED***
     public function login($email, $password) : string|false {
-        $stmt = $this->db->prepare("SELECT * FROM utilisateur WHERE email = :email");
+        $stmt = $this->db->prepare("SELECT * FROM user WHERE email = :email");
         $stmt->execute(["email" => $email]);
         $data = $stmt->fetch();
         if ($data === false)
             return false;
-        if (!password_verify($password, $data["mdp"]))
+        if (!password_verify($password, $data["password"]))
             return false;
         return $this->createToken($data["id"]);
     }
 
     // ***REMOVED***
-    public function register($nom, $email, $mdp) : string|false
+    public function register($name, $email, $password) : string|false
     {
-        $stmt = $this->db->prepare("INSERT INTO utilisateur (nom, email, mdp, idRole) VALUES (:nom, :email, :mdp, :roleId)");
-        $stmt->execute(["nom" => $nom, "email" => $email, "mdp" => @password_hash($mdp, PASSWORD_BCRYPT), "roleId" => self::USER_ID]);
+        $stmt = $this->db->prepare("INSERT INTO user (name, email, password, idRole) VALUES (:name, :email, :password, :roleId)");
+        $stmt->execute(["name" => $name, "email" => $email, "password" => @password_hash($password, PASSWORD_BCRYPT), "roleId" => self::USER_ID]);
         return $this->db->lastInsertId();
     }
 
     // ***REMOVED***
     public function getUser($id) : array|false
     {
-        $stmt = $this->db->prepare("SELECT * FROM utilisateur WHERE id = :id");
+        $stmt = $this->db->prepare("SELECT * FROM user WHERE id = :id");
         $stmt->execute(["id" => $id]);
         $data = $stmt->fetch();
         if ($data === false)
@@ -66,7 +66,7 @@ class dbManager {
     // ***REMOVED***
     public function getUserByToken($token) : int|false
     {
-        $stmt = $this->db->prepare("SELECT idUtilisateur FROM token WHERE token = :token");
+        $stmt = $this->db->prepare("SELECT idUser FROM token WHERE token = :token");
         $stmt->execute(["token" => $token]);
         $data = $stmt->fetchColumn();
         if ($data === false)
@@ -85,7 +85,7 @@ class dbManager {
     public function createToken($userId) : string
     {
         $token = bin2hex(random_bytes(100));
-        $stmt = $this->db->prepare("INSERT INTO token (token, idUtilisateur) VALUES (:token, :userId)");
+        $stmt = $this->db->prepare("INSERT INTO token (token, idUser) VALUES (:token, :userId)");
         $stmt->execute(["token" => $token, "userId" => $userId]);
         return $token;
     }
@@ -107,43 +107,43 @@ class dbManager {
     }
 
     // ***REMOVED***
-    public function addApp($nom, $dateSortie, $description, $idDeveloppeur) : string|false
+    public function addApp($name, $releaseDate, $description, $idDev) : string|false
     {
-        $stmt = $this->db->prepare("INSERT INTO jeu (nom, dateSortie, description, idDeveloppeur) VALUES (:nom, :dateSortie, :description, :idDeveloppeur)");
-        $stmt->execute(["nom" => $nom, "dateSortie" => $dateSortie, "description" => $description, "idDeveloppeur" => $idDeveloppeur]);
+        $stmt = $this->db->prepare("INSERT INTO app (name, releaseDate, description, idDev) VALUES (:name, :releaseDate, :description, :idDev)");
+        $stmt->execute(["name" => $name, "releaseDate" => $releaseDate, "description" => $description, "idDev" => $idDev]);
         return $this->db->lastInsertId();
     }
 
     // ***REMOVED***
     public function deleteApp($gameId) : bool
     {
-        $stmt = $this->db->prepare("DELETE FROM jeu WHERE id = $gameId");
+        $stmt = $this->db->prepare("DELETE FROM app WHERE id = $gameId");
         return $stmt->execute();
     }
 
     // ***REMOVED***
-    public function getReviews($idJeu) : array|false
+    public function getReviews($idApp) : array|false
     {
-        $stmtApp = $this->getApp($idJeu);
+        $stmtApp = $this->getApp($idApp);
         if ($stmtApp === false)
             return false;
-        $stmt = $this->db->prepare("SELECT * FROM getReviews WHERE idJeu = :idJeu");
-        $stmt->execute(["idJeu" => $idJeu]);
+        $stmt = $this->db->prepare("SELECT * FROM getReviews WHERE idApp = :idApp");
+        $stmt->execute(["idApp" => $idApp]);
         return $stmt->fetchAll();
     }
 
     // ***REMOVED***
-    public function addReview($note, $description, $idUtilisateur, $idJeu)
+    public function addReview($note, $description, $idUser, $idApp)
     {
-        $stmt = $this->db->prepare("INSERT INTO evaluation (note, description, idUtilisateur, idJeu) VALUES (:note, :description, :idUtilisateur, :idJeu)");
-        $stmt->execute(["note" => $note, "description" => $description, "idUtilisateur" => $idUtilisateur, "idJeu" => $idJeu]);
+        $stmt = $this->db->prepare("INSERT INTO review (note, description, idUser, idApp) VALUES (:note, :description, :idUser, :idApp)");
+        $stmt->execute(["note" => $note, "description" => $description, "idUser" => $idUser, "idApp" => $idApp]);
         return $this->db->lastInsertId();
     }
 
     // ***REMOVED***
-    public function deleteReview($evaluationId) : bool
+    public function deleteReview($reviewId) : bool
     {
-        $stmt = $this->db->prepare("DELETE FROM evaluation WHERE id = $evaluationId");
+        $stmt = $this->db->prepare("DELETE FROM review WHERE id = $reviewId");
         return $stmt->execute();
     }
 

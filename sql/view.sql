@@ -21,7 +21,7 @@ GROUP BY app.id;
 
 DROP VIEW IF EXISTS getReviews;
 CREATE VIEW `getReviews` AS
-SELECT review.id,  review.note, review.creationDate, review.description, user.id as authorId, user.name AS pseudo, app.id as idJeu, app.name as app
+SELECT review.id,  review.note, review.creationDate, review.description, user.id as authorId, user.name AS pseudo, app.id as appId, app.name as appName
 FROM review
 JOIN user ON user.id = review.idUser
 JOIN app ON app.id = review.idApp;
