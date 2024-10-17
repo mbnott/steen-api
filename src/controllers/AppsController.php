@@ -3,15 +3,15 @@
 namespace Mbnot\SteenApi\controllers;
 use Mbnot\SteenApi\models\HTTP_STATUS;
 use Mbnot\SteenApi\models\dbManager;
-use Mbnot\SteenApi\models\game;
+use Mbnot\SteenApi\models\App;
 use Mbnot\SteenApi\models\review;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-class gamesController extends baseController
+class AppsController extends baseController
 {
-    // Fetches all games, with `tag` and `name` filter
-    public function getGames(Request $request, Response $response): Response
+    // Fetches all apps, with `tag` and `name` filter
+    public function getApps(Request $request, Response $response): Response
     {
         $db = new dbManager();
 
@@ -20,21 +20,21 @@ class gamesController extends baseController
             return $response
                 ->withStatus(HTTP_STATUS::UNAUTHORIZED);
 
-        // Fetching games
-        $fetchedGames = $db->getGames();
-        $games = [];
+        // Fetching apps
+        $fetchedApps = $db->getApps();
+        $apps = [];
 
-        foreach($fetchedGames as $game)
-            array_push($games, new Game(
-                $game["id"],
-                $game["name"],
-                $game["releaseDate"],
-                $game["description"],
-                $game["devName"],
-                floatval($game["note"]),
+        foreach($fetchedApps as $app)
+            array_push($apps, new App(
+                $app["id"],
+                $app["nom"],
+                $app["releaseDate"],
+                $app["description"],
+                $app["devName"],
+                floatval($app["note"]),
             ));
 
-        $response->getBody()->write(json_encode($games));
+        $response->getBody()->write(json_encode($apps));
 
         return $response
             ->withHeader('content-type', 'application/json')
@@ -42,7 +42,7 @@ class gamesController extends baseController
     }
 
     // ***REMOVED***, ***REMOVED***
-    public function getGame(Request $request, Response $response, array $args) : Response
+    public function getApp(Request $request, Response $response, array $args) : Response
     {
         $db = new dbManager();
 
@@ -51,15 +51,15 @@ class gamesController extends baseController
             return $response
                 ->withStatus(HTTP_STATUS::UNAUTHORIZED);
 
-        // Fetching game
-        $fetchedGame = $db->getGame($args["id"]);
-        if ($fetchedGame === false) // Checking if it exists before
+        // Fetching app
+        $fetchedApp = $db->getApp($args["id"]);
+        if ($fetchedApp === false) // Checking if it exists before
             return $response
                 ->withStatus(HTTP_STATUS::NOT_FOUND);
 
         $response->getBody()->write(json_encode(
-            new game($fetchedGame["id"], $fetchedGame["name"], $fetchedGame["releaseDate"],
-            $fetchedGame["description"], $fetchedGame["devName"], $fetchedGame["note"])
+            new App($fetchedApp["id"], $fetchedApp["nom"], $fetchedApp["releaseDate"],
+            $fetchedApp["description"], $fetchedApp["devName"], $fetchedApp["note"])
         ));
 
         return $response
@@ -68,7 +68,7 @@ class gamesController extends baseController
     }
 
     // ***REMOVED***, ***REMOVED***
-    public function addGame(Request $request, Response $response) : Response
+    public function addApp(Request $request, Response $response) : Response
     {
         $db = new dbManager();
 
@@ -78,7 +78,7 @@ class gamesController extends baseController
                 ->withStatus(HTTP_STATUS::UNAUTHORIZED);
 
         // Fields verification
-        if (!self::verifyFields($request, ["name", "releaseDate", "description"]))
+        if (!self::verifyFields($request, ["nom", "releaseDate", "description"]))
             return $response
                 ->withStatus(HTTP_STATUS::BAD_REQUEST);
 
@@ -86,14 +86,14 @@ class gamesController extends baseController
         $input = json_decode(file_get_contents('php://input'));
         $token = $this->realtoken;
 
-        // Adding game to db
-        $result = $db->addGame($input->name, $input->releaseDate, $input->description, $db->getUserByToken($token));
+        // Adding app to db
+        $result = $db->addApp($input->nom, $input->releaseDate, $input->description, $db->getUserByToken($token));
         if ($result === false)
             return $response
                 ->withStatus(HTTP_STATUS::INTERNAL_SERVER_ERROR);
 
         $response->getBody()->write(json_encode([
-            "message" => "Game successfully added!",
+            "message" => "App successfully added!",
             "id" => $result,
         ]));
 
@@ -103,7 +103,7 @@ class gamesController extends baseController
     }
 
     // ***REMOVED***
-    public function deleteGame(Request $request, Response $response, array $args) : Response
+    public function deleteApp(Request $request, Response $response, array $args) : Response
     {
         $db = new dbManager();
 
@@ -112,26 +112,26 @@ class gamesController extends baseController
             return $response
                 ->withStatus(HTTP_STATUS::UNAUTHORIZED);
 
-        // Check if game exists
-        $game = $db->getGame($args["id"]);
-        if ($game === false)
+        // Check if app exists
+        $app = $db->getApp($args["id"]);
+        if ($app === false)
             return $response
                 ->withStatus(HTTP_STATUS::NOT_FOUND);
 
         // Check if user has the rights
         $user = $db->getUser($db->getUserByToken($this->realtoken));
 
-        if ($user["idRole"] == $db::ADMIN_ID || $user["id"] == $game["devId"]) // If user does not have the rights
+        if ($user["idRole"] == $db::ADMIN_ID || $user["id"] == $app["idDeveloppeur"]) // If user does not have the rights
         {
-            // Attempt to delete the game
-            $success = $db->deleteGame($args["id"]);
+            // Attempt to delete the app
+            $success = $db->deleteApp($args["id"]);
 
             if (!$success) // On fail
                 return $response
                     ->withStatus(HTTP_STATUS::INTERNAL_SERVER_ERROR);
 
             // Success
-            $response->getBody()->write(json_encode(["message" => "Game successfully deleted!"]));
+            $response->getBody()->write(json_encode(["message" => "App successfully deleted!"]));
             return $response
                 ->withHeader('content-type', 'application/json')
                 ->withStatus(HTTP_STATUS::OK);
@@ -163,9 +163,9 @@ class gamesController extends baseController
             array_push($reviews, new review(
                 $review["id"],
                 $review["note"],
-                $review["creationDate"],
+                $review["datePost"],
                 $review["description"],
-                $review["authorId"],
+                $review["idUtilisateur"],
                 $review["authorName"],
                 $review["appId"],
                 $review["appName"]
@@ -193,16 +193,16 @@ class gamesController extends baseController
             return $response
                 ->withStatus(HTTP_STATUS::BAD_REQUEST);
 
-        // Check if game exists
-        $game = $db->getGame($args["id"]);
-        if ($game === false)
+        // Check if app exists
+        $app = $db->getApp($args["id"]);
+        if ($app === false)
             return $response
                 ->withStatus(HTTP_STATUS::NOT_FOUND);
 
         // Getting body data & token to get user id
         $input = json_decode(file_get_contents('php://input'));
 
-        // Adding game to db
+        // Adding app to db
         $result = $db->addReview($input->note, $input->description, $db->getUserByToken($this->realtoken), $args["id"]);
         if ($result === false)
             return $response

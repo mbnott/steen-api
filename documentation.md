@@ -90,19 +90,19 @@ The response body will return the user's `<id>` and a new `<token>`. It is in `J
 | Header         | Value              |
 |----------------|--------------------|
 | `Content-Type` | `application/json` |
-## Games
-### <span style="color:#0F0">**GET**</span> Get games
+## Apps
+### <span style="color:#0F0">**GET**</span> Get apps
 ```
-http://steen.api/games
+http://steen.api/apps
 ```
-Fetches all the games stored in the database.
+Fetches all the apps stored in the database.
 #### Request
 ##### Headers
 `Authorization` - **required**
 ##### Body
-Fields that allow filtering games.
-- `<name>` is an optional, not yet implemented way to filter games based on their name. It will attempt to find the `string` given inside the games name and description.
-- `<tags>` is an optional, not yet implemented way to filter games based on their tags. It will only return games that match the given tags. Each tag is separated with a coma.
+Fields that allow filtering apps.
+- `<name>` is an optional, not yet implemented way to filter apps based on their name. It will attempt to find the `string` given inside the apps name and description.
+- `<tags>` is an optional, not yet implemented way to filter apps based on their tags. It will only return apps that match the given tags. Each tag is separated with a coma.
 ```json
 {
     "name" : <name>,
@@ -113,7 +113,7 @@ Fields that allow filtering games.
 ##### <span style="color:#F00">**401**</span> Unauthorized
 Given if no valid token was sent in the `Authorization` header.
 ##### <span style="color:#0F0">**200**</span> OK
-Given if authentication was successful and games were found.
+Given if authentication was successful and apps were found.
 ###### Body
 ```json
 [
@@ -134,7 +134,7 @@ Given if authentication was successful and games were found.
 | `Content-Type` | `application/json` |
 ### <span style="color:#FF0">**POST**</span> Add game
 ```
-http://steen.api/games
+http://steen.api/apps
 ```
 Adds a game to Steen.
 #### Request
@@ -161,7 +161,7 @@ Given if game creation was successful.
 ###### Body
 ```json
 {
-    "message" : "Game successfully added!",
+    "message" : "App successfully added!",
     "id" : <id>
 }
 ```
@@ -171,7 +171,7 @@ Given if game creation was successful.
 | `Content-Type` | `application/json` |
 ### <span style="color:#0F0">**GET**</span> Get game
 ```
-http://steen.api/games/{id}
+http://steen.api/apps/{id}
 ```
 Fetches the data of a single game. `{id}` specifies the id of the game to fetch.
 #### Request
@@ -203,7 +203,7 @@ Given if game was returned successfully.
 | `Content-Type` | `application/json` |
 ### <span style="color:#F00">**DELETE**</span> Delete game
 ```
-http://steen.api/games/{id}
+http://steen.api/apps/{id}
 ```
 Deletes the data of a game. `{id}` specifies the id of the game to delete.
 #### Request
@@ -225,7 +225,7 @@ Given if the game was successfully deleted.
 ###### Body
 ```json
 {
-    "message" : "Game successfully deleted!"
+    "message" : "App successfully deleted!"
 }
 ```
 ###### Headers
@@ -234,7 +234,7 @@ Given if the game was successfully deleted.
 | `Content-Type` | `application/json` |
 ### <span style="color:#0F0">**GET**</span> Get reviews
 ```
-http://steen.api/games/{id}/reviews
+http://steen.api/apps/{id}/reviews
 ```
 Fetches all the reviews of a game. `{id}` specifies the id of the game to get reviews.
 #### Request
@@ -268,7 +268,7 @@ Given if the reviews were successfully returned.
 | `Content-Type` | `application/json` |
 ### <span style="color:#FF0">**POST**</span> Add review
 ```
-http://steen.api/games/{id}/reviews
+http://steen.api/apps/{id}/reviews
 ```
 Add a review to a game with his id.
 #### Request

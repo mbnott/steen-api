@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mbnot\SteenApi\models;
 
-class game {
+class App {
 
     public int $id;
     public string $nom;
