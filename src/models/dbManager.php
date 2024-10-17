@@ -91,23 +91,23 @@ class dbManager {
     }
 
     // ***REMOVED***
-    public function getGames() : array
+    public function getApps() : array
     {
-        $stmt = $this->db->prepare("SELECT * FROM getGames");
+        $stmt = $this->db->prepare("SELECT * FROM getApps");
         $stmt->execute();
         return $stmt->fetchAll();
     }
 
     // ***REMOVED***, ***REMOVED***
-    public function getGame($id) : array|false
+    public function getApp($id) : array|false
     {
-        $stmt = $this->db->prepare("SELECT * FROM getGames WHERE id = :id");
+        $stmt = $this->db->prepare("SELECT * FROM getApps WHERE id = :id");
         $stmt->execute(["id" => $id]);
         return $stmt->fetch() ?? false;
     }
 
     // ***REMOVED***
-    public function addGame($nom, $dateSortie, $description, $idDeveloppeur) : string|false
+    public function addApp($nom, $dateSortie, $description, $idDeveloppeur) : string|false
     {
         $stmt = $this->db->prepare("INSERT INTO jeu (nom, dateSortie, description, idDeveloppeur) VALUES (:nom, :dateSortie, :description, :idDeveloppeur)");
         $stmt->execute(["nom" => $nom, "dateSortie" => $dateSortie, "description" => $description, "idDeveloppeur" => $idDeveloppeur]);
@@ -115,7 +115,7 @@ class dbManager {
     }
 
     // ***REMOVED***
-    public function deleteGame($gameId) : bool
+    public function deleteApp($gameId) : bool
     {
         $stmt = $this->db->prepare("DELETE FROM jeu WHERE id = $gameId");
         return $stmt->execute();
@@ -124,8 +124,8 @@ class dbManager {
     // ***REMOVED***
     public function getReviews($idJeu) : array|false
     {
-        $stmtGame = $this->getGame($idJeu);
-        if ($stmtGame === false)
+        $stmtApp = $this->getApp($idJeu);
+        if ($stmtApp === false)
             return false;
         $stmt = $this->db->prepare("SELECT * FROM getReviews WHERE idJeu = :idJeu");
         $stmt->execute(["idJeu" => $idJeu]);
