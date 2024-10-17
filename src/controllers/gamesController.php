@@ -27,10 +27,10 @@ class gamesController extends baseController
         foreach($fetchedGames as $game)
             array_push($games, new Game(
                 $game["id"],
-                $game["nom"],
-                $game["dateSortie"],
+                $game["name"],
+                $game["releaseDate"],
                 $game["description"],
-                $game["pseudo"],
+                $game["devName"],
                 floatval($game["note"]),
             ));
 
@@ -58,8 +58,8 @@ class gamesController extends baseController
                 ->withStatus(HTTP_STATUS::NOT_FOUND);
 
         $response->getBody()->write(json_encode(
-            new game($fetchedGame["id"], $fetchedGame["nom"], $fetchedGame["dateSortie"],
-            $fetchedGame["description"], $fetchedGame["pseudo"], $fetchedGame["note"])
+            new game($fetchedGame["id"], $fetchedGame["name"], $fetchedGame["releaseDate"],
+            $fetchedGame["description"], $fetchedGame["devName"], $fetchedGame["note"])
         ));
 
         return $response
@@ -78,7 +78,7 @@ class gamesController extends baseController
                 ->withStatus(HTTP_STATUS::UNAUTHORIZED);
 
         // Fields verification
-        if (!self::verifyFields($request, ["nom", "dateSortie", "description"]))
+        if (!self::verifyFields($request, ["name", "releaseDate", "description"]))
             return $response
                 ->withStatus(HTTP_STATUS::BAD_REQUEST);
 
@@ -87,7 +87,7 @@ class gamesController extends baseController
         $token = $this->realtoken;
 
         // Adding game to db
-        $result = $db->addGame($input->nom, $input->dateSortie, $input->description, $db->getUserByToken($token));
+        $result = $db->addGame($input->name, $input->releaseDate, $input->description, $db->getUserByToken($token));
         if ($result === false)
             return $response
                 ->withStatus(HTTP_STATUS::INTERNAL_SERVER_ERROR);
@@ -163,12 +163,12 @@ class gamesController extends baseController
             array_push($reviews, new review(
                 $review["id"],
                 $review["note"],
-                $review["datePost"],
+                $review["creationDate"],
                 $review["description"],
-                $review["idUtilisateur"],
-                $review["pseudo"],
-                $review["idJeu"],
-                $review["jeu"]
+                $review["authorId"],
+                $review["authorName"],
+                $review["gameId"],
+                $review["gameName"]
             ));
 
         $response->getBody()->write(json_encode($reviews));
