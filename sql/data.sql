@@ -1,6 +1,6 @@
 USE Steen;
 
-INSERT INTO tag (nom) VALUES ("Horreur"),
+INSERT INTO tag (name) VALUES ("Horreur"),
     ("Bac a sable"),
     ("FPS"),
     ("Metroidvania"),
@@ -19,19 +19,19 @@ INSERT INTO tag (nom) VALUES ("Horreur"),
     ("Survie"),
     ("Clicker");
 
-INSERT INTO role (nom) VALUES ("Client"), ("Admin");
+INSERT INTO role (name) VALUES ("Client"), ("Admin");
 
--- le mot de passe des deux utilisateur est Super2024
-INSERT INTO utilisateur (nom, email, mdp, idRole) VALUES ("SuperUtilisateur", "Utilisateur@gmail.com", "$2y$10$NZxH.5R6GaoctqV7ioiaNux/jVufSQCtE.O5brKVfuTk45i0yuA9K", 1),
+-- le mot de passe des deux user est Super2024
+INSERT INTO user (name, email, password, idRole) VALUES ("SuperUser", "user@gmail.com", "$2y$10$NZxH.5R6GaoctqV7ioiaNux/jVufSQCtE.O5brKVfuTk45i0yuA9K", 1),
     ("SuperAdmin", "Admin@gmail.com", "$2y$10$NZxH.5R6GaoctqV7ioiaNux/jVufSQCtE.O5brKVfuTk45i0yuA9K", 2);
 
-INSERT INTO jeu (nom, dateSortie, description, idDeveloppeur) VALUES ("La Joie De Créer", "2013-03-12", "La joie de création est un jeu d’horreur terrifiant en vue à la première personne.", 1),
+INSERT INTO app (name, releaseDate, description, idDev) VALUES ("La Joie De Créer", "2013-03-12", "La joie de création est un jeu d’horreur terrifiant en vue à la première personne.", 1),
     ("La redemption de la mort rouge II", "2018-10-26", "La redemption de la mort rouge II est le deuxième opus de la série qui se déroule avant le premier jeu.", 1),
     ("La légende de Zelda : Souffle de la nature", "2017-03-03", "La légende de Zelda : Souffle de la nature est un jeu en monde ouvert dont le but est de tuer un être maléfique.", 1);
 
-INSERT INTO JEU_A_TAG (idTag, idJeu) VALUES (1, 1),
+INSERT INTO APP_HAS_TAG (idTag, IdApp) VALUES (1, 1),
     (4, 1),
     (2, 2);
 
-INSERT INTO evaluation (note, description, idUtilisateur, idJeu) VALUES (8, "test", 1, 1),
+INSERT INTO review (note, description, idUser, idApp) VALUES (8, "test", 1, 1),
     (3, "test", 1, 3);
